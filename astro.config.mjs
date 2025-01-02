@@ -2,7 +2,8 @@
 
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 // Adapter
-import vercel from '@astrojs/vercel'
+// import vercel from '@astrojs/vercel'
+import node from '@astrojs/node'
 // Integrations
 import AstroPureIntegration from 'astro-pure'
 import { defineConfig } from 'astro/config'
@@ -37,12 +38,12 @@ export default defineConfig({
 
   // Adapter
   // 1. Vercel (serverless)
-  adapter: vercel(),
+  // adapter: vercel(),
   output: 'server',
   // 2. Vercel (static)
   // adapter: vercelStatic(),
   // 3. Local (standalone)
-  // adapter: node({ mode: 'standalone' }),
+  adapter: node({ mode: 'standalone' }),
   // ---
 
   image: {

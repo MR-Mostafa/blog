@@ -3,29 +3,34 @@ import type { CardListData, Config, IntegrationUserConfig, ThemeUserConfig } fro
 export const theme: ThemeUserConfig = {
   // === Basic configuration ===
   /** Title for your website. Will be used in metadata and as browser tab title. */
-  title: 'Astro Theme Pure',
+  title: 'بلاگ فنی',
+
+  tagline: 'با تمرکز بر فرانت‌اند',
+
   /** Will be used in index page & copyright declaration */
-  author: 'Pure Lab',
+  author: 'مصطفی رحمتی',
   /** Description metadata for your website. Can be used in page metadata. */
-  description: 'Stay hungry, stay foolish',
+  description:
+    'بلاگ فنی با تمرکز بر توسعه فرانت‌اند، تایپ‌اسکریپت و ری‌اکت. آموزش‌ها، نکات، و تکنیک‌های پیشرفته برای توسعه‌دهندگان وب.',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** Specify the default language for this site. */
   locale: {
-    lang: 'en-US',
-    attrs: 'en_US',
+    lang: 'fa-IR',
+    attrs: 'fa_IR',
     // Date locale
-    dateLocale: 'en-US',
+    dateLocale: 'fa-IR',
     dateOptions: {
       day: 'numeric',
       month: 'short',
-      year: 'numeric'
+      year: 'numeric',
+      numberingSystem: 'latn'
     }
   },
   /** Set a logo image to show in the homepage. */
   logo: {
-    src: 'src/assets/avatar.png',
-    alt: 'Avatar'
+    src: 'src/assets/logo.png',
+    alt: 'logo'
   },
 
   // === Global configuration ===
@@ -47,25 +52,24 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: 'Blog', link: '/blog' },
-      { title: 'Docs', link: '/docs/list' },
-      { title: 'Projects', link: '/projects' },
-      { title: 'Links', link: '/links' },
-      { title: 'About', link: '/about' }
+      { title: 'بلاگ', link: '/blog' },
+      { title: 'درباره من', link: '/about' }
     ]
   },
 
   /** Configure the footer of your site. */
   footer: {
     // Registration information for ICP (optional)
-    registration: {
-      url: 'https://icp.gov.moe/?keyword=APTX4869',
-      text: 'Moe ICP APTX4869'
-    },
+    registration: {},
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
     credits: true,
     /** Optional details about the social media accounts for this site. */
-    social: { github: 'https://astro.build/chat' }
+    social: {
+      github: 'https://github.com/MR-Mostafa',
+      linkedin: 'https://linkedin.com/in/m-rahmati',
+      telegram: 'https://t.me/Mostafa_Rahmati',
+      x: 'https://x.com/MR_Mostafa70'
+    }
   },
 
   content: {

@@ -3,7 +3,6 @@ import config from 'virtual:config'
 
 import { Icon } from '../user'
 
-const year = new Date().getFullYear()
 const footerConf = config.footer
 let social = footerConf.social || {}
 
@@ -21,33 +20,17 @@ social.rss = {
         class='flex items-center gap-x-4 gap-y-2 text-muted-foreground max-sm:flex-col [&_a:hover]:text-primary [&_a]:text-foreground'
       >
         {
-          footerConf.registration && (
-            <a
-              class='text-xs'
-              style='color:hsl(var(--muted-foreground)/var(--tw-text-opacity,1))'
-              href={footerConf.registration.url}
-              target='_blank'
-            >
-              {footerConf.registration.text}
-            </a>
-          )
-        }
-        <span>
-          © {year}
-          {config.author} &
-          <a href='/terms/list'>Site policy</a>
-        </span>
-        {
           footerConf.credits && (
             <span class='text-muted-foreground [&_a:hover]:text-primary [&_a]:text-foreground'>
+              قدرت گرفته از
               <a href='https://github.com/withastro/astro' target='_blank'>
                 Astro
               </a>
-              &
+              و
               <a href='https://github.com/cworld1/astro-theme-pure' target='_blank'>
                 Pure
               </a>
-              theme powered
+              با کمی دخل و تصرف ♥️
             </span>
           )
         }
@@ -62,6 +45,8 @@ social.rss = {
                 class='inline-block text-muted-foreground transition-all hover:text-muted-foreground/75'
                 href={url}
                 aria-label={label}
+                title={label}
+                target='_blank'
               >
                 <Icon name={platform as keyof typeof footerConf.social} />
               </a>

@@ -1,0 +1,11 @@
+html {
+  direction: rtl;
+}
+
+astro-dev-toolbar,
+.astro-code,
+.katex-display,
+code,
+pre {
+  direction: ltr;
+}

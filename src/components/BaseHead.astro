@@ -26,12 +26,11 @@ const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.png', As
 <link rel='manifest' href='/favicon/site.webmanifest' />
 
 {/* Font preloads */}
-<link rel='preload' href='/fonts/Satoshi-Variable.ttf' as='font' type='font/ttf' crossorigin />
 <link
   rel='preload'
-  href='/fonts/Satoshi-VariableItalic.ttf'
+  href='/fonts/Vazirmatn-RD[wght].woff2'
   as='font'
-  type='font/ttf'
+  type='font/woff2'
   crossorigin
 />
 
@@ -44,7 +43,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.png', As
 <meta content={config.author} name='author' />
 
 {/* Theme Color */}
-<meta content='' name='theme-color' />
+<meta content='#142728' name='theme-color' />
 
 {/* Open Graph / Facebook */}
 <meta content={articleDate ? 'article' : 'website'} property='og:type' />
@@ -87,6 +86,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.png', As
 
 {/* Styles */}
 <link rel='stylesheet' href='/styles/global.css' />
+<link rel='stylesheet' href='/styles/rtl.css' />
 
 {/* View transitions */}
 <!-- <ClientRouter /> -->

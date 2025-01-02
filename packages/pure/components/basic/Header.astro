@@ -5,7 +5,7 @@ import { Icon } from '../user'
 ---
 
 <header-component
-  class='group sticky top-4 z-30 mb-12 flex items-center justify-between rounded-xl border border-transparent max-sm:py-1 sm:rounded-2xl [&.not-top]:border-border [&.not-top]:bg-background [&.not-top]:px-1.5 dark:[&.not-top]:bg-muted'
+  class='group sticky top-4 z-30 mb-12 flex items-center justify-between rounded-xl border border-transparent before:absolute max-sm:py-1 sm:rounded-2xl [&.not-top]:border-border [&.not-top]:bg-background [&.not-top]:px-1.5 dark:[&.not-top]:bg-muted'
 >
   <!-- <div
       class='absolute -left-4 -top-8 -z-10 box-content hidden h-20 w-[calc(100%+2rem)] !duration-0 max-sm:group-[.expanded]:block max-sm:group-[.expanded.not-top]:hidden max-sm:group-[.expanded]:bg-white dark:max-sm:group-[.expanded]:bg-muted'
@@ -15,8 +15,11 @@ import { Icon } from '../user'
     class='z-30 text-xl font-semibold group-[.not-top]:ms-2 sm:group-[.not-top]:ms-3'
     style='transition:margin-inline 0.3s'
     href='/'
-    aria-label='Brand'>{config.title}</a
+    aria-label='Brand'
   >
+    {config.title}
+    {config.tagline}
+  </a>
 
   <div class='flex items-center gap-x-2'>
     {/* Menu links */}
@@ -37,8 +40,12 @@ import { Icon } from '../user'
           ))
         }
         <div class='flex w-full grow flex-row justify-end gap-x-3 sm:w-fit sm:gap-x-5'>
-          <a class='px-1 py-2 transition-none sm:px-2' href='/search' title='Search'>
-            <span class='sr-only'>Search</span>
+          <a
+            class='box-content size-5 rounded-md border p-1.5 transition-colors hover:bg-border sm:group-[.not-top]:rounded-xl'
+            href='/search'
+            title='جستجو'
+          >
+            <span class='sr-only'>جستجو</span>
             <Icon name='search' class='size-5' />
           </a>
         </div>
@@ -51,8 +58,7 @@ import { Icon } from '../user'
         id='toggleDarkMode'
         class='group/dark box-content size-5 rounded-md border p-1.5 transition-colors hover:bg-border sm:group-[.not-top]:rounded-xl'
       >
-        <span class='sr-only'>Dark Theme</span>
-        <Icon class='system size-5 group-hover/dark:text-primary' name='computer' />
+        <span class='sr-only'>حالت تاریک</span>
         <Icon class='light hidden size-5 group-hover/dark:text-primary' name='sun' />
         <Icon class='dark hidden size-5 group-hover/dark:text-primary' name='moon' />
       </button>
@@ -70,8 +76,13 @@ import { Icon } from '../user'
 {/* Use inline to load icon quicker firstly */}
 <script is:inline>
   const toggleDarkModeElement = document.getElementById('toggleDarkMode')
+  const themeInLs = localStorage.getItem('theme')
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+
   if (toggleDarkModeElement) {
-    toggleDarkModeElement.dataset.theme = localStorage.getItem('theme') || 'system'
+    const theme = themeInLs || systemTheme
+    toggleDarkModeElement.title = theme === 'dark' ? 'حالت روشن' : 'حالت تاریک'
+    toggleDarkModeElement.dataset.theme = localStorage.getItem('theme') || systemTheme
   }
 </script>
 <script>
@@ -102,7 +113,9 @@ import { Icon } from '../user'
         // document.dispatchEvent(toggleDarkModeEvent)
         const newTheme = setTheme(undefined, true)
         darkModeBtn.dataset.theme = newTheme
-        showToast({ message: `Set theme to ${newTheme}` })
+        showToast({
+          message: `حالت تم به ${newTheme === 'dark' ? 'تاریک' : 'روشن'} تغییر کرد.`
+        })
       })
 
       // Menu

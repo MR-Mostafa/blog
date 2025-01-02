@@ -2,19 +2,29 @@
 import type { HTMLAttributes } from 'astro/types'
 
 import { cn, getFormattedDate } from '../../utils'
+import Icon from './Icon.astro'
 
 type Props = HTMLAttributes<'time'> & {
   date: Date
   dateTimeOptions?: Intl.DateTimeFormatOptions
   class?: string
+  withIcon?: boolean
 }
 
-const { date, dateTimeOptions, class: className, ...attrs } = Astro.props
+const { date, dateTimeOptions, class: className, withIcon = false, ...attrs } = Astro.props
 
 const postDate = getFormattedDate(date, dateTimeOptions)
 ---
 
-<span class={cn('text-muted-foreground font-mono', className)} {...attrs}>
+<span
+  class={cn(
+    'text-muted-foreground',
+    { 'flex items-center justify-start gap-1': withIcon },
+    className
+  )}
+  {...attrs}
+>
+  {withIcon && <Icon name='calendar' class='size-4 -translate-y-[2px]' />}
   <time datetime={date.toISOString()}>
     {postDate}
   </time>

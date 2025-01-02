@@ -3,17 +3,14 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.ttf');
+  font-family: 'Vazirmatn RD';
+  src:
+    url('/fonts/Vazirmatn-RD[wght].woff2') format('woff2 supports variations'),
+    url('/fonts/Vazirmatn-RD[wght].woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-VariableItalic.ttf');
-  font-style: italic;
-  font-display: swap;
+  font-named-instance: 'Regular';
 }
 
 @layer base {
@@ -71,5 +68,15 @@
   }
   a {
     @apply transition-colors hover:text-primary;
+  }
+}
+
+@layer utilities {
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
   }
 }

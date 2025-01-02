@@ -21,7 +21,8 @@ export const LocaleConfigSchema = () =>
         timeZoneName: z.enum(['short', 'long']).optional(),
         formatMatcher: z.enum(['best fit', 'basic']).optional(),
         hour12: z.boolean().optional(),
-        timeZone: z.string().optional()
+        timeZone: z.string().optional(),
+        numberingSystem: z.string().optional()
       })
       .default({})
   })
