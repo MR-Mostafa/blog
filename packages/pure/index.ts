@@ -18,14 +18,14 @@ import { UserConfigSchema } from './types/user-config';
 import { parseWithFriendlyErrors } from './utils/error-map';
 
 export default function AstroPureIntegration(opts: UserInputConfig): AstroIntegration {
-	let integrations: AstroIntegration[] = [];
-	let remarkPlugins: RemarkPlugins = [];
-	let rehypePlugins: RehypePlugins = [];
+	const integrations: AstroIntegration[] = [];
+	const remarkPlugins: RemarkPlugins = [];
+	const rehypePlugins: RehypePlugins = [];
 	return {
 		name: 'astro-pure',
 		hooks: {
 			'astro:config:setup': async ({ config, updateConfig }) => {
-				let userConfig = parseWithFriendlyErrors(UserConfigSchema, opts, 'Invalid config passed to starlight integration');
+				const userConfig = parseWithFriendlyErrors(UserConfigSchema, opts, 'Invalid config passed to starlight integration');
 
 				// Add built-in integrations only if they are not already added by the user through the
 				// config or by a plugin.

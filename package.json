@@ -14,12 +14,11 @@
 		"dev": "astro dev",
 		"dev:check": "astro check --watch & astro dev",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.prettier-cache\" --color",
-		"lint": "eslint \"**/*.{js,ts,jsx,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.eslint-cache\" --color",
+		"lint": "eslint --fix \"**/*.{js,ts,jsx,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.eslint-cache\" --color",
 		"new": "astro-pure new",
 		"preview": "astro preview",
 		"pure": "astro-pure",
 		"sync": "astro sync",
-		"typecheck": "tsc --project tsconfig.json --listFilesOnly",
 		"update:theme": " yarn add ./packages/pure",
 		"yijiansilian": "bun lint && bun sync && bun check && bun format"
 	},
@@ -42,6 +41,7 @@
 		"typescript": "^5.7.2"
 	},
 	"devDependencies": {
+		"@astrojs/ts-plugin": "^1.10.4",
 		"@eslint/js": "^9.17.0",
 		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
 		"@typescript-eslint/parser": "^8.19.0",

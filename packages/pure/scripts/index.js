@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-undef */
 'use strict';
 
 import { readFileSync } from 'fs';
