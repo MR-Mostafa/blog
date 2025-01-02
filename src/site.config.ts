@@ -50,10 +50,7 @@ export const theme: ThemeUserConfig = {
 
 	/** Configure the header of your site. */
 	header: {
-		menu: [
-			{ title: 'بلاگ', link: '/blog' },
-			{ title: 'درباره من', link: '/about' },
-		],
+		menu: [{ title: 'بلاگ', link: '/blog' }],
 	},
 
 	/** Configure the footer of your site. */
