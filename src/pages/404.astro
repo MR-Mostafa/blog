@@ -3,16 +3,61 @@ import { Button } from 'astro-pure/user';
 import PageLayout from '@/layouts/BaseLayout.astro';
 
 const meta = {
-	description: 'Not found',
-	title: '404',
+	description: 'همچین صفحه‌ای یافت نشد.',
+	title: 'یافت نشد',
 };
 ---
 
 <PageLayout {meta}>
-	<div class="px-4 py-10 text-center sm:px-6 lg:px-8">
-		<h1 class="block text-7xl font-bold sm:text-9xl">404</h1>
-		<p class="mt-3 text-muted-foreground">Oops, something went wrong.</p>
-		<p class="text-lg">Sorry, we couldn't find your page.</p>
-		<Button title="Back to home" href="/" style="ahead" class="mt-5" />
+	<div class="px-4 py-14 text-center sm:px-6 lg:px-8">
+		<h1 class="block text-7xl font-bold sm:text-[10rem]">404</h1>
+		<p class="mb-3 mt-1 text-xl text-muted-foreground">اُوپس، همچین صفحه‌ای پیدا نشد.</p>
+		<Button title="بازگشت به صفحه اصلی" href="/" style="ahead" class="mt-5" />
 	</div>
 </PageLayout>
+
+<style>
+	.wave-noise {
+		font-family: 'Arial', sans-serif;
+		font-size: 100px;
+		font-weight: bold;
+		color: white;
+		position: relative;
+		display: inline-block;
+		animation: wave 2s infinite linear;
+		filter: url(#noise);
+	}
+
+	@keyframes wave {
+		0% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	/* Noise effect filter */
+	.noise {
+		background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy533wvdmlld0ltZy90ZXh0L3ZpZGVvLnJjZig...') repeat;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		filter: blur(5px);
+		pointer-events: none;
+		animation: noise 0.5s infinite;
+	}
+
+	@keyframes noise {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-100px);
+		}
+	}
+</style>
