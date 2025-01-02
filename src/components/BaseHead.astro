@@ -1,9 +1,6 @@
 ---
-// import { ClientRouter } from 'astro:transitions'
-
 import type { SiteMeta } from 'astro-pure/types';
 
-import { prod } from 'astro-pure/server';
 import config from '@/site-config';
 
 type Props = SiteMeta;
@@ -12,7 +9,7 @@ const { articleDate, description, ogImage, title } = Astro.props;
 
 const siteTitle = `${title} ${config.titleDelimiter} ${config.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.png', Astro.url).href;
+const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.jpg', Astro.url).href;
 ---
 
 <meta charset="utf-8" />
@@ -79,25 +76,14 @@ const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.png', As
 <link rel="stylesheet" href="/styles/rtl.css" />
 
 {/* View transitions */}
-<!-- <ClientRouter /> -->
-<!-- <script is:inline>
-  const style = document.createElement('style')
-  style.textContent = `* { transition: none !important; }`
-  document.addEventListener('astro:after-swap', () => {
-    document.head.appendChild(style)
-    setTimeout(() => {
-      style.remove()
-    }, 100)
-  })
+<!-- <ClientRouter />
+<script is:inline>
+	const style = document.createElement('style');
+	style.textContent = `* { transition: none !important; }`;
+	document.addEventListener('astro:after-swap', () => {
+		document.head.appendChild(style);
+		setTimeout(() => {
+			style.remove();
+		}, 100);
+	});
 </script> -->
-
-{
-	/* User script*/
-	prod && (
-		<script>
-			console.log( '%c Astro Theme Pure %c https://github.com/cworld1/astro-theme-pure/',
-			'color:#fff;background:linear-gradient(90deg,#448bff,#44e9ff);padding:5px 0;',
-			'color:#000;background:linear-gradient(90deg,#44e9ff,#ffffff);padding:5px 10px 5px 0px;' )
-		</script>
-	)
-}
