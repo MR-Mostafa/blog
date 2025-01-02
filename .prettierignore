@@ -1,3 +1,14 @@
 node_modules/**
 src/icons/**
 public/scripts/*
+**/.output
+**/.cashe
+pnpm-lock.yaml
+yarn-lock.lock
+package-lock.json
+build/
+**/.vscode
+*.mdx
+*.md
+
+**/Tabs.astro

@@ -1,196 +1,168 @@
 ---
-import { Image } from 'astro:assets'
-import { render, type CollectionEntry, type CollectionKey } from 'astro:content'
-import type { HTMLTag, Polymorphic } from 'astro/types'
+import type { CollectionEntry, CollectionKey } from 'astro:content';
+import type { HTMLTag, Polymorphic } from 'astro/types';
 
-import svgNotContent from '@/assets/not-content.svg'
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 
-import { cn } from '../../utils'
-import { Button, FormattedDate, Icon } from '../user'
+import svgNotContent from '@/assets/not-content.svg';
+
+import { cn } from '../../utils';
+import { Button, FormattedDate, Icon } from '../user';
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
-  post: CollectionEntry<CollectionKey>
-  detailed?: boolean
-  class?: string
-}
+	post: CollectionEntry<CollectionKey>;
+	detailed?: boolean;
+	class?: string;
+};
 
-const { as: Tag = 'div', post, detailed = false, class: className } = Astro.props
+const { as: Tag = 'div', post, detailed = false, class: className } = Astro.props;
 
-const { id, data } = post
+const { id, data } = post;
 
-const { remarkPluginFrontmatter } = await render(post)
+const { remarkPluginFrontmatter } = await render(post);
 
-const postDate = data.updatedDate ?? data.publishDate
+const postDate = data.updatedDate ?? data.publishDate;
 ---
 
 <div
-  class={cn(
-    'post-preview group/card flex relative rounded-2xl border border-border bg-background transition-colors ease-in-out px-3.5 py-2.5 hover:bg-muted flex-col-reverse',
-    detailed && 'max-sm:px-3.5 sm:py-3.5 flex-col',
-    className
-  )}
-  style={detailed &&
-    data.heroImage?.color &&
-    `--preview-highlight:color-mix(in srgb,${data.heroImage.color} 40%,hsl(var(--foreground)/var(--tw-text-opacity,1)));
+	class={cn(
+		'post-preview group/card flex relative rounded-2xl border border-border bg-background transition-colors ease-in-out px-3.5 py-2.5 hover:bg-muted flex-col-reverse',
+		detailed && 'max-sm:px-3.5 sm:py-3.5 flex-col',
+		className,
+	)}
+	style={detailed &&
+		data.heroImage?.color &&
+		`--preview-highlight:color-mix(in srgb,${data.heroImage.color} 40%,hsl(var(--foreground)/var(--tw-text-opacity,1)));
     --preview-highlight-bg:hsl(from ${data.heroImage.color} h s l/20%)`}
 >
-  {
-    data.draft && (
-      <span class='absolute left-3.5 top-3.5 z-20 rounded-lg bg-red-500/80 px-2 py-1 text-sm text-red-50'>
-        پیش‌نویس
-      </span>
-    )
-  }
+	{data.draft && <span class="absolute left-3.5 top-3.5 z-20 rounded-lg bg-red-500/80 px-2 py-1 text-sm text-red-50">پیش‌نویس</span>}
 
-  {
-    detailed && (
-      <a
-        class={cn('group/link block h-40 w-full transition-all')}
-        href={`/blog/${id}`}
-        tabindex='-1'
-        data-astro-prefetch
-      >
-        <Image
-          src={data.heroImage?.src || svgNotContent}
-          alt={data.heroImage?.alt || data.title}
-          class='cover-image h-full w-full rounded-2xl object-cover opacity-70 transition-opacity duration-300 group-hover/card:opacity-90'
-          loading='eager'
-          inferSize={true}
-        />
-      </a>
-    )
-  }
+	{
+		detailed && (
+			<a class={cn('group/link block h-40 w-full transition-all')} href={`/blog/${id}`} tabindex="-1" data-astro-prefetch>
+				<Image
+					src={data.heroImage?.src || svgNotContent}
+					alt={data.heroImage?.alt || data.title}
+					class="cover-image h-full w-full rounded-2xl object-cover opacity-70 transition-opacity duration-300 group-hover/card:opacity-90"
+					loading="eager"
+					inferSize={true}
+				/>
+			</a>
+		)
+	}
 
-  <div
-    class={cn(
-      'flex items-center justify-between gap-2 pt-2 text-sm text-muted-foreground select-none',
-      {
-        'pb-2': detailed
-      }
-    )}
-  >
-    <p class='flex items-center justify-start'>
-      <FormattedDate class='min-w-[95px]' date={postDate} withIcon />
+	<div
+		class={cn('flex items-center justify-between gap-2 pt-2 text-sm text-muted-foreground select-none', {
+			'pb-2': detailed,
+		})}
+	>
+		<p class="flex items-center justify-start">
+			<FormattedDate class="min-w-[95px]" date={postDate} withIcon />
 
-      {
-        !!data.updatedDate && (
-          <time datetime={data.updatedDate.toISOString()} class='text-[11px]'>
-            (بروزرسانی‌ شده)
-          </time>
-        )
-      }
-    </p>
+			{
+				!!data.updatedDate && (
+					<time datetime={data.updatedDate.toISOString()} class="text-[11px]">
+						(بروزرسانی‌ شده)
+					</time>
+				)
+			}
+		</p>
 
-    {/* reading time */}
-    <span class='flex items-center justify-start gap-1'>
-      <Icon name='time' class='size-4 -translate-y-[2px]' />
-      {remarkPluginFrontmatter.minutesRead.replace(/min read/i, 'دقیقه')}
-    </span>
-  </div>
+		{/* reading time */}
+		<span class="flex items-center justify-start gap-1">
+			<Icon name="time" class="size-4 -translate-y-[2px]" />
+			{remarkPluginFrontmatter.minutesRead.replace(/min read/i, 'دقیقه')}
+		</span>
+	</div>
 
-  <Tag class='flex-grow'>
-    {/* title */}
-    <div class='flex justify-between'>
-      <a class={cn('w-full', { 'font-medium': detailed })} href={`/blog/${id}`} data-astro-prefetch>
-        {data.title}
-      </a>
+	<Tag class="flex-grow">
+		{/* title */}
+		<div class="flex justify-between">
+			<a class={cn('w-full', { 'font-medium': detailed })} href={`/blog/${id}`} data-astro-prefetch>
+				{data.title}
+			</a>
 
-      {
-        !detailed && (
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke-width='2.5'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            class='preview-redirect my-1 stroke-muted-foreground group-hover/link:stroke-primary'
-          >
-            <line
-              x1='19'
-              y1='12'
-              x2='5'
-              y2='12'
-              class='translate-x-4 scale-x-0 transition-all duration-300 ease-in-out group-hover/link:translate-x-1 group-hover/link:scale-x-100'
-            />
-            <polyline
-              points='12 19 5 12 12 5'
-              class='translate-x-0 transition-all duration-300 ease-in-out group-hover/link:translate-x-1'
-            />
-          </svg>
-        )
-      }
-    </div>
+			{
+				!detailed && (
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke-width="2.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="preview-redirect my-1 stroke-muted-foreground group-hover/link:stroke-primary"
+					>
+						<line
+							x1="19"
+							y1="12"
+							x2="5"
+							y2="12"
+							class="translate-x-4 scale-x-0 transition-all duration-300 ease-in-out group-hover/link:translate-x-1 group-hover/link:scale-x-100"
+						/>
+						<polyline
+							points="12 19 5 12 12 5"
+							class="translate-x-0 transition-all duration-300 ease-in-out group-hover/link:translate-x-1"
+						/>
+					</svg>
+				)
+			}
+		</div>
 
-    {
-      detailed && (
-        <>
-          {/* desc */}
-          <p class={cn('line-clamp-2 pt-1 text-sm text-muted-foreground sm:line-clamp-3')}>
-            {data.description}
-          </p>
-        </>
-      )
-    }
-  </Tag>
-  <!-- tags -->
-  {
-    detailed && data.tags && (
-      <ul class='tag-list mt-2.5 flex select-none flex-wrap gap-2'>
-        {data.tags.slice(0, 3).map((tag: string) => (
-          <li>
-            <Button title={tag} href={`/tags/${tag}`} style='pill' />
-          </li>
-        ))}
-      </ul>
-    )
-  }
+		{
+			detailed && (
+				<>
+					{/* desc */}
+					<p class={cn('line-clamp-2 pt-1 text-sm text-muted-foreground sm:line-clamp-3')}>{data.description}</p>
+				</>
+			)
+		}
+	</Tag>
+	<!-- tags -->
+	{
+		detailed && data.tags && (
+			<ul class="tag-list mt-2.5 flex select-none flex-wrap gap-2">
+				{data.tags.slice(0, 3).map((tag: string) => (
+					<li>
+						<Button title={tag} href={`/tags/${tag}`} style="pill" />
+					</li>
+				))}
+			</ul>
+		)
+	}
 </div>
 
 <style>
-  .post-preview {
-    --preview-highlight-final: var(
-      --preview-highlight,
-      hsl(var(--primary) / var(--tw-text-opacity, 1))
-    );
-  }
-  .post-preview:hover {
-    &,
-    & .tag-list a {
-      background-color: var(
-        --preview-highlight-bg,
-        hsl(var(--muted) / var(--tw-bg-opacity, 1))
-      ) !important;
-    }
-    & > a,
-    & .tag-list a:hover {
-      color: var(--preview-highlight-final) !important;
-    }
-    & > a .preview-redirect {
-      stroke: var(--preview-highlight-final) !important;
-    }
-  }
-  .cover-image {
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-    -ms-mask-image: -ms-linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-    -webkit-mask-image: -webkit-linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 100%
-    );
-  }
+	.post-preview {
+		--preview-highlight-final: var(--preview-highlight, hsl(var(--primary) / var(--tw-text-opacity, 1)));
+	}
+	.post-preview:hover {
+		&,
+		& .tag-list a {
+			background-color: var(--preview-highlight-bg, hsl(var(--muted) / var(--tw-bg-opacity, 1))) !important;
+		}
+		& > a,
+		& .tag-list a:hover {
+			color: var(--preview-highlight-final) !important;
+		}
+		& > a .preview-redirect {
+			stroke: var(--preview-highlight-final) !important;
+		}
+	}
+	.cover-image {
+		mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+		-ms-mask-image: -ms-linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+		-webkit-mask-image: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+	}
 
-  @media (max-width: 768px) {
-    .cover-image {
-      mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-      -ms-mask-image: -ms-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-      -webkit-mask-image: -webkit-linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
-      );
-    }
-  }
+	@media (max-width: 768px) {
+		.cover-image {
+			mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+			-ms-mask-image: -ms-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+			-webkit-mask-image: -webkit-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+		}
+	}
 </style>

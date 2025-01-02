@@ -1,0 +1,49 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "astro", // Enable .astro
+    "typescript", // Enable .ts
+    "typescriptreact" // Enable .tsx
+  ],
+  "eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+	"eslint.format.enable": true,
+	"files.autoSave": "off",
+	"files.insertFinalNewline": true,
+	"files.eol": "\r\n",
+	"files.simpleDialog.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "never",
+		"source.fixAll.eslint": "explicit",
+		"source.organizeImports": "explicit"
+	},
+	"editor.suggestSelection": "first",
+	"editor.autoClosingBrackets": "always",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.rulers": [103],
+	"editor.wordWrap": "wordWrapColumn",
+	"editor.wordWrapColumn": 100,
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.tokenColorCustomizations": {
+		"comments": "#ffffff60"
+	},
+	"editor.indentSize": "tabSize",
+	"editor.insertSpaces": true,
+	"editor.tabSize": 2,
+	"editor.autoIndent": "full",
+	"editor.stickyScroll.enabled": true,
+  "css.lint.unknownAtRules": "ignore",
+	"css.lint.emptyRules": "ignore",
+	"scss.lint.unknownAtRules": "ignore",
+	"scss.lint.emptyRules": "ignore",
+  "errorLens.excludeBySource": ["css(unknownAtRules)", "scss(unknownAtRules)"],
+}

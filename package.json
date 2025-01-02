@@ -1,59 +1,65 @@
 {
-  "name": "my-blog",
-  "type": "module",
-  "version": "1.0.0",
-  "author": {
-    "name": "Mostafa Rahmati",
-    "url": "https://github.com/MR-Mostafa"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "dev:check": "astro check --watch & astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "sync": "astro sync",
-    "check": "astro check",
-    "astro": "astro",
-    "pure": "astro-pure",
-    "new": "astro-pure new",
-    "format": "prettier --write  '**/*.{js,jsx,ts,tsx,md,mdx,astro}'",
-    "lint": "eslint --fix 'src/**/*.{js,ts,jsx,tsx,astro}'",
-    "yijiansilian": "bun lint && bun sync && bun check && bun format",
-    "clean": "rm -rf .astro .vercel dist",
-    "update:theme": " yarn add ./packages/pure"
-  },
-  "packageManager": "yarn@1.22.22",
-  "engines": {
-    "node": ">=20.18",
-    "yarn": "1.22.22"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/node": "^9.0.0",
-    "@astrojs/rss": "^4.0.10",
-    "@astrojs/tailwind": "^5.1.4",
-    "@astrojs/vercel": "^8.0.1",
-    "@playform/compress": "^0.1.6",
-    "@tailwindcss/typography": "^0.5.15",
-    "@waline/client": "^3.4.2",
-    "astro": "^5.1.1",
-    "astro-pure": "./packages/pure",
-    "katex": "^0.16.19",
-    "rehype-katex": "^7.0.1",
-    "remark-math": "^6.0.0",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
-    "eslint": "^9.17.0",
-    "eslint-plugin-astro": "^1.3.1",
-    "prettier": "^3.4.2",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.9",
-    "rollup-plugin-visualizer": "^5.13.1",
-    "typescript-eslint": "^8.19.0"
-  }
+	"name": "my-blog",
+	"version": "1.0.0",
+	"author": {
+		"name": "Mostafa Rahmati",
+		"url": "https://github.com/MR-Mostafa"
+	},
+	"type": "module",
+	"scripts": {
+		"astro": "astro",
+		"build": "astro check && astro build",
+		"check": "astro check",
+		"clean": "rm -rf .astro .vercel dist",
+		"dev": "astro dev",
+		"dev:check": "astro check --watch & astro dev",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.prettier-cache\" --color",
+		"lint": "eslint \"**/*.{js,ts,jsx,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.eslint-cache\" --color",
+		"new": "astro-pure new",
+		"preview": "astro preview",
+		"pure": "astro-pure",
+		"sync": "astro sync",
+		"typecheck": "tsc --project tsconfig.json --listFilesOnly",
+		"update:theme": " yarn add ./packages/pure",
+		"yijiansilian": "bun lint && bun sync && bun check && bun format"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.4",
+		"@astrojs/node": "^9.0.0",
+		"@astrojs/rss": "^4.0.10",
+		"@astrojs/tailwind": "^5.1.4",
+		"@astrojs/vercel": "^8.0.1",
+		"@playform/compress": "^0.1.6",
+		"@tailwindcss/typography": "^0.5.15",
+		"@waline/client": "^3.4.2",
+		"astro": "^5.1.1",
+		"astro-pure": "./packages/pure",
+		"katex": "^0.16.19",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
+		"sharp": "^0.33.5",
+		"tailwindcss": "^3.4.17",
+		"typescript": "^5.7.2"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.17.0",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+		"@typescript-eslint/parser": "^8.19.0",
+		"eslint": "^9.17.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-astro": "^1.3.1",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.4.2",
+		"prettier-plugin-astro": "^0.14.1",
+		"prettier-plugin-packagejson": "^2.5.6",
+		"prettier-plugin-tailwindcss": "^0.6.9",
+		"rollup-plugin-visualizer": "^5.13.1",
+		"tailwind-merge": "^2.6.0",
+		"typescript-eslint": "^8.19.0"
+	},
+	"packageManager": "yarn@1.22.22",
+	"engines": {
+		"node": ">=20.18",
+		"yarn": "1.22.22"
+	}
 }

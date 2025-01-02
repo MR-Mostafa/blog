@@ -1,32 +1,32 @@
-import { Icons } from '../libs/icons'
+import { Icons } from '../libs/icons';
 
-export type { IntegrationUserConfig } from './integrations-config'
-export type { ThemeUserConfig } from './theme-config'
-export type { UserInputConfig as Config } from './user-config'
+export type { IntegrationUserConfig } from './integrations-config';
+export type { ThemeUserConfig } from './theme-config';
+export type { UserInputConfig as Config } from './user-config';
 
 export interface SiteMeta {
-  title: string
-  description?: string
-  ogImage?: string | undefined
-  articleDate?: string | undefined
+	title: string;
+	description?: string;
+	ogImage?: string | undefined;
+	articleDate?: string | undefined;
 }
 
 export type CardListData = {
-  title: string
-  list: CardList
-}
+	title: string;
+	list: CardList;
+};
 
 export type CardList = {
-  title: string
-  link?: string
-  children?: CardList
-}[]
+	title: string;
+	link?: string;
+	children?: CardList;
+}[];
 
 export type TimelineEvent = {
-  date: string
-  content: string
-}
+	date: string;
+	content: string;
+};
 
-export type iconsType = keyof typeof Icons
+export type iconsType = keyof typeof Icons;
 
-export { socialLinks } from './constants'
+export { socialLinks } from './constants';
