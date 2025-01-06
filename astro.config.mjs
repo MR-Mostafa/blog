@@ -1,7 +1,7 @@
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 // Adapter
 // import vercel from '@astrojs/vercel'
-import node from '@astrojs/node';
+// import node from '@astrojs/node';
 // Integrations
 import AstroPureIntegration from 'astro-pure';
 import { defineConfig } from 'astro/config';
@@ -31,17 +31,17 @@ import config from './src/site.config.ts';
 export default defineConfig({
 	// Top-Level Options
 	site: 'https://mr-mostafa.ir/',
-	base: '/blog',
+	base: '/',
 	trailingSlash: 'never',
 
 	// Adapter
 	// 1. Vercel (serverless)
 	// adapter: vercel(),
-	output: 'server',
+	output: 'static',
 	// 2. Vercel (static)
 	// adapter: vercelStatic(),
 	// 3. Local (standalone)
-	adapter: node({ mode: 'standalone' }),
+	// adapter: node({ mode: 'standalone' }),
 	// ---
 
 	image: {
