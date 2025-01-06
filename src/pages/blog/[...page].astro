@@ -28,46 +28,44 @@ interface Props {
 
 const { page, uniqueTags, collectionsCount } = Astro.props;
 
+const totalPage = Math.ceil(page.total / page.size);
+
 const meta = {
-	description: 'Some posts or archieves of my blog',
-	title: 'Blog',
+	description: 'برخی از پست ها یا آرشیوهای وبلاگ فنی',
+	title: `بلاگ صفحه ${page.currentPage}`,
 };
 
 const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: `← Previous Posts`,
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: `Next Posts →`,
-			url: page.url.next,
-		},
-	}),
+	prevUrl: {
+		text: `صفحه قبلی  ←`,
+		url: page.url.prev,
+	},
+	nextUrl: {
+		text: `→ صفحه بعدی`,
+		url: page.url.next,
+	},
 };
 ---
 
 <PageLayout {meta}>
-	<Button title="Back" href="/" style="back" />
+	<Button title="بازگشت به صفحه اصلی" href="/" style="back" />
 	<main class="mt-6 lg:mt-10">
 		<div id="content-header" class="animate">
-			<h1 class="mb-6 mt-6 text-3xl font-medium sm:mt-10">Blog</h1>
+			<h1 class="mb-6 mt-6 text-3xl font-medium sm:mt-10">بلاگ</h1>
 		</div>
 		{
 			page.data.length === 0 ? (
-				<p>No posts yet.</p>
+				<p>پستی وجود ندارد.</p>
 			) : (
 				<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
 					<section aria-label="Blog posts list" class="animate" id="content">
 						{/* header */}
 						<div class="mb-3 flex flex-col justify-between text-sm sm:mb-5 sm:flex-row">
 							<span class="text-muted-foreground">
-								Page {page.currentPage} - Showing {page.data.length} of {collectionsCount} posts
+								صفحه {page.currentPage} از {totalPage} - تعداد کل پست‌ها {collectionsCount}
 							</span>
 							<a aria-label="View all blog by years" href="/archives" data-astro-prefetch>
-								View all posts by years →
+								نمایش همه‌ی پست‌ها بر اساس سال ←
 							</a>
 						</div>
 						{/* posts */}
@@ -84,7 +82,7 @@ const paginationProps = {
 						<aside class="animate" id="sidebar">
 							<h2 class="mb-4 flex items-center text-lg font-semibold">
 								<Icon name="tag-2" class="me-2" />
-								Tags
+								کلمات کلیدی
 							</h2>
 							<ul class="text-bgColor flex flex-wrap gap-2">
 								{uniqueTags.map((tag) => (
@@ -95,7 +93,7 @@ const paginationProps = {
 							</ul>
 							<span class="mt-4 block sm:text-end">
 								<a aria-label="View all blog categories" href="/tags" data-astro-prefetch>
-									View all →
+									نمایش همه ←
 								</a>
 							</span>
 						</aside>

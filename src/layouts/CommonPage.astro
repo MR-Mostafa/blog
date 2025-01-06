@@ -22,7 +22,7 @@ const { title, headings, info, ...props } = Astro.props;
 ---
 
 <PageLayout meta={{ title }} {...props}>
-	<Button title="Back" href="/" style="back" />
+	<Button title="بازگشت به صفحه اصلی" href="/" style="back" />
 	<main class="mt-6 items-start gap-x-10 md:flex">
 		{!!headings?.length && <TOC class="animate top-24 z-10 min-w-48 basis-60 max-md:hidden md:sticky md:order-2" {headings} />}
 

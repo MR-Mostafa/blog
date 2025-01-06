@@ -1,6 +1,8 @@
 ---
 import type { MarkdownHeading } from 'astro';
 
+import { cn } from 'astro-pure/utils';
+
 import { generateToc } from '../../plugins/toc';
 import TOCHeading from './TOCHeading.astro';
 
@@ -14,9 +16,9 @@ const { headings, class: className, ...props } = Astro.props;
 const toc = generateToc(headings);
 ---
 
-<aside class={className} id="sidebar" {...props}>
+<aside class={cn('transition-position', className)} id="sidebar" {...props}>
 	<toc-heading>
-		<h2 class="font-semibold">TABLE OF CONTENTS</h2>
+		<h2 class="font-semibold">فهرست مطالب</h2>
 		<ul class="mt-4 max-h-[70vh] overflow-y-scroll text-card-foreground">
 			{toc.map((heading) => <TOCHeading heading={heading} />)}
 		</ul>
@@ -40,6 +42,8 @@ const toc = generateToc(headings);
 	}
 
 	class TOC extends HTMLElement {
+		headerComponent: HTMLElement | null = document.querySelector('header-component');
+		sidebar: HTMLElement = document.getElementById('sidebar')!;
 		headings: HTMLElement[] = [];
 		tocLinks: TOCLink[] = [];
 		headingProgress: Record<string, HeadingProgress> = {};
@@ -107,8 +111,16 @@ const toc = generateToc(headings);
 			});
 
 			// Initial first and listen to scroll event
-			setInterval(this.updatePositionAndStyle, 100);
+			setTimeout(this.updatePositionAndStyle, 100);
 			window.addEventListener('scroll', this.updatePositionAndStyle);
+
+			if (this.headerComponent) {
+				this.headerComponent.addEventListener('headerShowChanged', (event) => {
+					const isShowHeader = (event as CustomEvent).detail.show === 'true';
+
+					this.sidebar.style.top = isShowHeader ? '96px' : '30px';
+				});
+			}
 		}
 	}
 

@@ -1,5 +1,5 @@
 html {
-  direction: rtl;
+	direction: rtl;
 }
 
 astro-dev-toolbar,
@@ -7,5 +7,17 @@ astro-dev-toolbar,
 .katex-display,
 code,
 pre {
-  direction: ltr;
+	direction: ltr;
+	text-align: left;
+}
+
+:is(h1, h2, h3, h4, h5, h6):has(> a.anchor) {
+	display: flex;
+	align-items: center;
+}
+
+:is(h1, h2, h3, h4, h5, h6) > a.anchor {
+	order: -1;
+	margin-inline-end: 0.75rem;
+	margin-inline-start: 0 !important;
 }

@@ -1,13 +1,13 @@
 ---
 type PaginationLink = {
-	url: string;
-	text?: string;
+	url?: string;
+	text: string;
 	srLabel?: string;
 };
 
 interface Props {
-	nextUrl?: PaginationLink;
-	prevUrl?: PaginationLink;
+	nextUrl: PaginationLink;
+	prevUrl: PaginationLink;
 }
 
 const { nextUrl, prevUrl } = Astro.props;
@@ -15,18 +15,29 @@ const { nextUrl, prevUrl } = Astro.props;
 
 {
 	(prevUrl || nextUrl) && (
-		<nav class="mt-4 flex items-center gap-x-4 sm:mt-6">
-			{prevUrl && (
-				<a class="me-auto py-2" data-astro-prefetch href={prevUrl.url}>
-					{prevUrl.srLabel && <span class="sr-only">{prevUrl.srLabel}</span>}
-					{prevUrl.text ? prevUrl.text : 'Previous'}
+		<nav class="mt-4 flex select-none items-center justify-center gap-x-4 sm:mt-6">
+			{nextUrl.url ? (
+				<a class="py-2" data-astro-prefetch href={nextUrl.url}>
+					<span class="sr-only">{nextUrl.srLabel ?? nextUrl.text}</span>
+					{nextUrl.text}
 				</a>
+			) : (
+				<span class="cursor-not-allowed py-2 opacity-30" aria-disabled="true">
+					<span class="sr-only">{nextUrl.srLabel ?? nextUrl.text}</span>
+					{nextUrl.text}
+				</span>
 			)}
-			{nextUrl && (
-				<a class="ms-auto py-2" data-astro-prefetch href={nextUrl.url}>
-					{nextUrl.srLabel && <span class="sr-only">{nextUrl.srLabel}</span>}
-					{nextUrl.text ? nextUrl.text : 'Next'}
+
+			{prevUrl.url ? (
+				<a class="py-2" data-astro-prefetch href={prevUrl.url}>
+					<span class="sr-only">{prevUrl.srLabel ?? prevUrl.text}</span>
+					{prevUrl.text}
 				</a>
+			) : (
+				<span class="cursor-not-allowed py-2 opacity-30" aria-disabled="true">
+					<span class="sr-only">{prevUrl.srLabel ?? prevUrl.text}</span>
+					{prevUrl.text}
+				</span>
 			)}
 		</nav>
 	)

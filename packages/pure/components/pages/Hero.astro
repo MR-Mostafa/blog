@@ -42,36 +42,38 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	)
 }
 
-{draft ? <span class="text-red-500">(Draft)</span> : null}
+{draft ? <span class="mb-2.5 inline-block rounded-lg bg-red-500/80 px-2 py-1 text-sm text-red-50">پیش‌نویس</span> : null}
 
 <div class="article-info max-lg:mx-auto">
 	<div class="flex flex-wrap gap-x-4 gap-y-2 text-xs leading-6 text-muted-foreground">
 		{/* Article date */}
-		<div class="flex items-center gap-1">
-			<Icon name="calendar" class="size-5" />
-			<FormattedDate class="font-sans" date={publishDate} dateTimeOptions={dateTimeOptions} />
+		<div class="flex items-center justify-start gap-1">
+			<Icon name="calendar" class="size-5 -translate-y-[2px]" />
+			<FormattedDate date={publishDate} dateTimeOptions={dateTimeOptions} />
 			{
 				updatedDate && (
-					<div class="flex items-center gap-1">
+					<div class="flex items-center justify-start gap-1">
 						<span> / </span>
 						<span>
-							Update
-							<FormattedDate class="font-sans" date={updatedDate} dateTimeOptions={dateTimeOptions} />
+							بروزرسانی شده در
+							<FormattedDate date={updatedDate} dateTimeOptions={dateTimeOptions} />
 						</span>
 					</div>
 				)
 			}
 		</div>
+
 		{/* Times read */}
-		<div class="flex items-center gap-1">
-			<Icon name="time" class="size-5" />
-			{remarkPluginFrontmatter.minutesRead}
-		</div>
+		<span class="flex items-center justify-start gap-1">
+			<Icon name="time" class="size-5 -translate-y-[2px]" />
+			{(remarkPluginFrontmatter.minutesRead as string).replace(/min read/i, 'دقیقه')}
+		</span>
+
 		{
 			// Language
 			language && (
-				<span class="flex items-center gap-1">
-					<Icon name="earth" class="size-5" />
+				<span class="flex items-center justify-start gap-1">
+					<Icon name="earth" class="size-5 -translate-y-[2px]" />
 					{language}
 				</span>
 			)
@@ -79,8 +81,8 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		{
 			// Tags
 			!!tags?.length && (
-				<span class="flex items-center gap-1">
-					<Icon name="hashtag" class="size-5" />
+				<span class="flex items-center justify-start gap-1">
+					<Icon name="hashtag" class="size-5 -translate-y-[2px]" />
 					{tags.map((tag: string, i: number) => (
 						<div>
 							<a

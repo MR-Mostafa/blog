@@ -96,8 +96,14 @@ import { Icon } from '../user';
 			this.classList.toggle('not-top', preScrollY > 20);
 			window.addEventListener('scroll', () => {
 				this.classList.toggle('not-top', window.scrollY > 20);
-				this.dataset.show = (window.scrollY < 350 || window.scrollY < preScrollY).toString();
+				const isShow = (window.scrollY < 350 || window.scrollY < preScrollY).toString();
+				this.dataset.show = isShow;
 				preScrollY = window.scrollY;
+
+				const headerShowChangedEvent = new CustomEvent('headerShowChanged', {
+					detail: { show: isShow },
+				});
+				this.dispatchEvent(headerShowChangedEvent);
 			});
 
 			// Dark Mode

@@ -37,27 +37,23 @@ const meta = {
 };
 
 const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: `← Previous Tags`,
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: `Next Tags →`,
-			url: page.url.next,
-		},
-	}),
+	prevUrl: {
+		text: `صفحه قبلی  ←`,
+		url: page.url.prev,
+	},
+	nextUrl: {
+		text: `→ صفحه بعدی`,
+		url: page.url.next,
+	},
 };
 ---
 
 <PageLayout {meta}>
-	<Button title="Back" href="/blog" style="back" />
+	<Button title="بازگشت به لیست پست‌ها" href="/blog" style="back" />
 	<main class="mt-6 lg:mt-10">
 		<div id="content-header" class="animate">
 			<h1 class="mb-6 flex items-end gap-x-2 text-3xl font-medium">
-				Tags:
+				کلمه‌ی کلیدی:
 				<span class="text-2xl">#{tag}</span>
 			</h1>
 		</div>

@@ -15,9 +15,9 @@ const { as: Tag = 'a', class: className, title, href, style = 'button', ...props
 	data-astro-prefetch
 	{...props}
 >
-	<slot name="before">
+	<slot name="after">
 		{
-			style === 'back' && (
+			style === 'ahead' && (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -44,9 +44,9 @@ const { as: Tag = 'a', class: className, title, href, style = 'button', ...props
 	<slot>
 		{title && <p class="my-0">{title}</p>}
 	</slot>
-	<slot name="after">
+	<slot name="before">
 		{
-			style === 'ahead' && (
+			style === 'back' && (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"

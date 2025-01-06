@@ -23,7 +23,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": "never",
 		"source.fixAll.eslint": "explicit",
-		"source.organizeImports": "explicit"
+		"source.organizeImports": "never",
 	},
 	"editor.suggestSelection": "first",
 	"editor.autoClosingBrackets": "always",

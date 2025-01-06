@@ -10,5 +10,7 @@ build/
 **/.vscode
 *.mdx
 *.md
+**/*.mdx
+**/*.md
 
 **/Tabs.astro

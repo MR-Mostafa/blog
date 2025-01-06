@@ -13,6 +13,13 @@ const icons = {
 	danger: 'octangon',
 } as const;
 
+const titles = {
+	note: 'توجه',
+	tip: 'نکته',
+	caution: 'احتیاط',
+	danger: 'هشدار',
+} as const;
+
 interface Props {
 	type?: (typeof asideVariants)[number];
 	title?: string;
@@ -28,12 +35,12 @@ if (!asideVariants.includes(type)) {
 }
 
 if (!title) {
-	title = type.toUpperCase();
+	title = titles[type];
 }
 ---
 
 <aside aria-label={title} class="aside my-3 overflow-hidden rounded-xl border">
-	<div class={cn('aside-container border-l-8 border-primary px-4 py-3 bg-primary', `aside-${type}`)}>
+	<div class={cn('aside-container border-r-8 border-primary px-4 py-3 bg-primary', `aside-${type}`)}>
 		<p class="not-prose flex items-center gap-x-2 font-medium text-primary" aria-hidden="true">
 			<Icon name={icons[type]} />
 			{title}

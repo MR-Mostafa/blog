@@ -1,12 +1,18 @@
 ---
 // https://github.com/withastro/starlight/blob/main/packages/starlight/user-components/Tabs.astro
+import { cn } from 'astro-pure/utils';
 import { processPanels } from '../../plugins/rehype-tabs'
 
 interface Props {
   syncKey?: string
+  classList?:{
+    wrapper?: string;
+    tablist?: string;
+    tabItem?: string;
+  }
 }
 
-const { syncKey } = Astro.props
+const { syncKey, classList } = Astro.props
 const panelHtml = await Astro.slots.render('default')
 const { html, panels } = processPanels(panelHtml)
 
@@ -75,10 +81,10 @@ if (isSynced) {
 <starlight-tabs data-sync-key={syncKey}>
   {
     panels && (
-      <div class='tablist-wrapper not-content'>
-        <ul role='tablist' class='my-0 not-prose'>
+      <div class={cn('tablist-wrapper not-content', classList?.wrapper)}>
+        <ul role='tablist' class={cn('my-0 not-prose', classList?.tablist)}>
           {panels.map(({ label, panelId, tabId }, idx) => (
-            <li role='presentation' class='tab'>
+            <li role='presentation' class={cn('tab', classList?.tabItem)}>
               <a
                 role='tab'
                 href={'#' + panelId}
@@ -105,6 +111,7 @@ if (isSynced) {
 
   .tablist-wrapper {
     overflow-x: auto;
+    overflow-y: clip;
   }
 
   [role='tablist'] {
