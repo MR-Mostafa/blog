@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 
-import { GithubCard } from 'astro-pure/advanced';
 import { PostPreview } from 'astro-pure/components/pages';
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server';
 import { Button, Icon, Label } from 'astro-pure/user';
@@ -67,9 +66,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 				)
 			}
 
-			<Section title="پروژه‌ها">
+			<!-- <Section title="پروژه‌ها">
 				<GithubCard title="وی‌اکت (Viact)" description="تست توضیحات" url="MR-Mostafa/viact" />
-			</Section>
+			</Section> -->
 		</div>
 	</main>
 </PageLayout>
