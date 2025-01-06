@@ -31,7 +31,7 @@ import config from './src/site.config.ts';
 export default defineConfig({
 	// Top-Level Options
 	site: 'https://mr-mostafa.ir/',
-	// base: '/docs',
+	base: '/blog',
 	trailingSlash: 'never',
 
 	// Adapter
