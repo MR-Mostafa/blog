@@ -30,7 +30,7 @@ import config from './src/site.config.ts';
 // https://astro.build/config
 export default defineConfig({
 	// Top-Level Options
-	site: 'https://astro-docs.vercel.app',
+	site: 'https://mr-mostafa.ir/',
 	// base: '/docs',
 	trailingSlash: 'never',
 
