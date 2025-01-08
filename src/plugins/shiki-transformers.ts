@@ -50,21 +50,26 @@ export const addTitle = (): ShikiTransformer => {
 		pre(node) {
 			const rawMeta = this.options.meta?.__raw;
 			if (!rawMeta) return;
-			const meta = parseMetaString(rawMeta);
+			const title = rawMeta.split('title=')[1].slice(1, -1);
 			// If meta is needed to parse in other transformers
 			// if (this.options.meta) {
 			//   Object.assign(this.options.meta, meta)
 			// }
 
-			if (!meta.title) return;
+			if (!title) return;
 
 			const div = h(
 				'div',
-				{
-					class: 'title absolute top-0 left-0 m-2 text-sm text-foreground px-3 py-1 bg-primary-foreground rounded-lg border border-border',
-				},
-				meta.title.toString(),
+				{ class: 'title absolute inset-0 m-2 bottom-auto flex items-center justify-center' },
+				h(
+					'div',
+					{
+						class: 'text-sm text-foreground px-3 py-1 bg-primary-foreground rounded-lg border border-border unicode-plaintext',
+					},
+					title.toString(),
+				),
 			);
+
 			node.children.unshift(div);
 		},
 	};

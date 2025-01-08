@@ -1,0 +1,58 @@
+---
+import { cn } from 'packages/pure/utils';
+
+type Props = {
+	class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<giscus-component>
+	<div id="giscus" class={cn('giscus mt-3 px-0.5 sm:mt-6', className)}></div>
+</giscus-component>
+
+<script>
+	class Comment extends HTMLElement {
+		constructor() {
+			super();
+		}
+
+		connectedCallback() {
+			// Prevent Vue log errors
+			(globalThis as unknown as { __VUE_OPTIONS_API__: boolean }).__VUE_OPTIONS_API__ = true;
+			(globalThis as unknown as { __VUE_PROD_DEVTOOLS__: boolean }).__VUE_PROD_DEVTOOLS__ = false;
+			(globalThis as unknown as { __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: boolean }).__VUE_PROD_HYDRATION_MISMATCH_DETAILS__ = false;
+
+			const giscusElem = document.getElementById('giscus');
+
+			if (!giscusElem) return;
+
+			const script = document.createElement('script');
+			script.src = 'https://giscus.app/client.js';
+			script.async = true;
+			script.crossOrigin = 'anonymous';
+
+			const config = {
+				'data-repo': 'MR-Mostafa/blog',
+				'data-repo-id': 'R_kgDONmgrkw',
+				'data-category': 'Comments',
+				'data-category-id': 'DIC_kwDONmgrk84Cl1wr',
+				'data-mapping': 'pathname',
+				'data-strict': '0',
+				'data-reactions-enabled': '1',
+				'data-emit-metadata': '0',
+				'data-input-position': 'bottom',
+				'data-theme': localStorage?.theme === 'light' ? 'light' : 'dark',
+				'data-lang': 'fa',
+				'data-loading': 'lazy',
+			};
+
+			Object.entries(config).forEach(([key, value]) => script.setAttribute(key, value));
+
+			giscusElem.appendChild(script);
+		}
+	}
+
+	customElements.define('giscus-component', Comment);
+</script>

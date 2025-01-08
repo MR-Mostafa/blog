@@ -47,10 +47,14 @@ span.katex-display {
 
 /* Shiki */
 .astro-code {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+	margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
 	border-radius: 0.5rem;
 	background-color: var(--tw-prose-pre-bg) !important;
+
+	& + .astro-code {
+		margin-top: 1rem;
+	}
 
 	& pre {
 		margin: 0;
@@ -106,9 +110,9 @@ span.katex-display {
 		position: relative;
 	}
 	&:has(div.title) {
-		padding-top: 2rem;
+		padding-top: 2.25rem;
 		& code::before {
-			top: calc(2rem + 0.8571429em);
+			top: calc(2.25rem + 0.8571429em);
 		}
 	}
 	& button.copy {
@@ -151,10 +155,20 @@ span.katex-display {
 	& .highlighted,
 	& .diff {
 		min-width: 100%;
+	}
+
+	& .highlighted,
+	& .highlighted-word,
+	& .diff {
 		display: inline-block;
 	}
+
 	& .highlighted,
 	& .highlighted::before {
+		background-color: rgba(149, 166, 183, 0.32) !important;
+	}
+
+	& .highlighted-word {
 		background-color: rgba(149, 166, 183, 0.32) !important;
 	}
 

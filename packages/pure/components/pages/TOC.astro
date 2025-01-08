@@ -126,3 +126,14 @@ const toc = generateToc(headings);
 
 	customElements.define('toc-heading', TOC);
 </script>
+
+<style>
+	html {
+		& aside#sidebar {
+			--highlightColor: #13181f;
+		}
+		&.dark aside#sidebar {
+			--highlightColor: #e6e6e6;
+		}
+	}
+</style>

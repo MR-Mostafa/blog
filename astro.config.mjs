@@ -9,6 +9,8 @@ import { defineConfig } from 'astro/config';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
+import { transformerNotationWordHighlight } from '@shikijs/transformers';
+
 // Others
 // import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -99,6 +101,7 @@ export default defineConfig({
 			transformers: [
 				transformerNotationDiff(),
 				transformerNotationHighlight(),
+				transformerNotationWordHighlight(),
 				updateStyle(),
 				addTitle(),
 				addLanguage(),
