@@ -6,12 +6,11 @@ const { class: className, hideComment, ...props } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
-<div class={cn('text-base text-sm text-muted-foreground', className)} {...props}>
-	<span class="waline-pageview-count" data-path={path}></span> بازدید
+<div class={cn('text-sm text-muted-foreground', className)} {...props}>
 	{
 		!hideComment && (
-			<a href="#waline">
-				| <span class="waline-comment-count" data-path={path} /> نظرات
+			<a href="#giscus">
+				| <span data-path={path} /> نظرات
 			</a>
 		)
 	}
