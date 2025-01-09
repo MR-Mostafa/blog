@@ -11,6 +11,12 @@ pre {
 	text-align: left;
 }
 
+.astro-code,
+code,
+pre {
+	font-family: 'Vazirmatn RD', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}
+
 :is(h1, h2, h3, h4, h5, h6):has(> a.anchor) {
 	display: flex;
 	align-items: center;
@@ -26,4 +32,10 @@ blockquote {
 	font-weight: normal !important;
 	font-style: normal !important;
 	line-height: 1.8;
+
+	&::after {
+		user-select: none;
+		pointer-events: none;
+		opacity: 10% !important;
+	}
 }
