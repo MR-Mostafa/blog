@@ -81,7 +81,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		{
 			// Tags
 			!!tags?.length && (
-				<span class="flex items-center justify-start gap-1">
+				<span class="flex flex-wrap items-center justify-start gap-1">
 					<Icon name="hashtag" class="size-5 -translate-y-[2px]" />
 					{tags.map((tag: string, i: number) => (
 						<div>
