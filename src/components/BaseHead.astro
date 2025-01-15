@@ -5,7 +5,7 @@ import config from '@/site-config';
 
 type Props = SiteMeta;
 
-const { articleDate, description, ogImage, title } = Astro.props;
+const { articleDate, description, ogImage, title, keywords } = Astro.props;
 
 const siteTitle = `${title} ${config.titleDelimiter} ${config.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -33,6 +33,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/images/social-card.jpg', As
 <meta content={siteTitle} name="title" />
 <meta content={description} name="description" />
 <meta content={config.author} name="author" />
+{!!keywords && keywords.length !== 0 && <meta content={keywords.join(', ')} name="keywords" />}
 
 {/* Theme Color */}
 <meta content="#142728" name="theme-color" />

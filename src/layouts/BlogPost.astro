@@ -27,14 +27,14 @@ const {
 	remarkPluginFrontmatter,
 } = Astro.props;
 
-const { description, heroImage, publishDate, title, updatedDate, draft: isDraft, comment: enableComment } = data;
+const { description, heroImage, publishDate, title, updatedDate, draft: isDraft, comment: enableComment, tags } = data;
 
 const socialImage = heroImage ? (typeof heroImage.src === 'string' ? heroImage.src : heroImage.src.src) : '/images/social-card.png';
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 const primaryColor = data.heroImage?.color ?? 'hsl(var(--primary) / var(--tw-text-opacity))';
 ---
 
-<PageLayout meta={{ articleDate, description, ogImage: socialImage, title }} highlightColor={primaryColor}>
+<PageLayout meta={{ articleDate, description, ogImage: socialImage, title, keywords: tags }} highlightColor={primaryColor}>
 	<Button title="بازگشت به لیست پست‌ها" href="/blog" style="back" />
 	<main class="tems-start mt-8 gap-x-10 md:flex">
 		{

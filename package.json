@@ -11,7 +11,7 @@
 		"build": "astro check && astro build",
 		"check": "astro check",
 		"clean": "rm -rf .astro .vercel dist",
-		"dev": "astro dev",
+		"dev": "yarn clean && yarn update:theme && astro dev",
 		"dev:check": "astro check --watch & astro dev",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.prettier-cache\" --color",
 		"lint": "eslint --fix \"**/*.{js,ts,jsx,tsx,astro}\" --cache --cache-location \"./node_modules/.cache/.eslint-cache\" --color",
