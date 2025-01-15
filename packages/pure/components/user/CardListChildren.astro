@@ -7,12 +7,12 @@ type Props = { children: CardList };
 const { children } = Astro.props;
 ---
 
-<ul class="ms-5 flex list-disc flex-col gap-y-1">
+<ul class="ms-5 flex list-disc flex-col gap-y-1.5">
 	{
 		children.map((child) => {
 			const Tag = child.link ? 'a' : 'p';
 			return (
-				<li>
+				<li class={cn('[&_ul]:pr-1 [&_ul]:pt-0.5', { 'py-2.5 only:py-0 only-of-type:py-0': !child.link })}>
 					<Tag href={child.link} class={cn('block', Tag == 'a' && 'text-foreground')}>
 						{child.title}
 					</Tag>
