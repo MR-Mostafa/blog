@@ -13,6 +13,18 @@
 	font-named-instance: 'Regular';
 }
 
+@font-face {
+	font-family: 'Vazirmatn RD NL';
+	src:
+		url('/fonts/Vazirmatn-RD[wght].woff2') format('woff2 supports variations'),
+		url('/fonts/Vazirmatn-RD[wght].woff2') format('woff2-variations');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+	font-named-instance: 'Regular';
+	unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
 @layer base {
 	:root {
 		--background: 210 33% 99%;

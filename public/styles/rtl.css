@@ -14,7 +14,7 @@ pre {
 .astro-code,
 code,
 pre {
-	font-family: 'Vazirmatn RD', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+	font-family: 'Vazirmatn RD NL', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 }
 
 :is(h1, h2, h3, h4, h5, h6):has(> a.anchor) {
