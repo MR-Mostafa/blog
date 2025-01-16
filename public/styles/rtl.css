@@ -17,6 +17,10 @@ pre {
 	font-family: 'Vazirmatn RD NL', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 }
 
+*:not(.astro-code) code {
+	display: inline-block;
+}
+
 :is(h1, h2, h3, h4, h5, h6):has(> a.anchor) {
 	display: flex;
 	align-items: center;
@@ -39,3 +43,42 @@ blockquote {
 		opacity: 10% !important;
 	}
 }
+
+.group\/expand {
+	& a {
+		font-style: italic;
+		text-decoration: underline;
+		text-underline-offset: 5px;
+
+		& span {
+			display: none;
+		}
+	}
+
+	*:not(.astro-code) code {
+		color: var(--tw-prose-code);
+		font-weight: 600;
+		font-size: 0.875em;
+
+		&::before {
+			content: '`';
+		}
+
+		&::after {
+			content: '`';
+		}
+	}
+
+	ul {
+		list-style-type: disc;
+		padding-inline-start: 1.5rem;
+
+		li {
+			padding-top: 0.5rem;
+
+			&:first-child {
+				padding-top: 0;
+			}
+		}
+	}
+} /* .group\/expand */

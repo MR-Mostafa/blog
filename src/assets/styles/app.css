@@ -93,12 +93,14 @@
 	}
 
 	.hr-dotted {
-		text-align: center;
-		margin: 0.5rem 0;
+		margin: 0;
+		padding: 0;
 		border: 0;
 		outline: none;
-		display: block;
-		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100px;
 		background: none;
 	}
 
@@ -106,9 +108,8 @@
 		font-size: 18px;
 		font-family: tahoma;
 		letter-spacing: 0.7rem;
-		content: '....';
+		content: '.....';
 		display: block;
-		margin: 0 auto;
 		color: #858585;
 	}
 

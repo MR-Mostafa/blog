@@ -6,6 +6,6 @@ main {
 main textarea {
 	font-family: 'Vazirmatn RD NL', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 		'Noto Color Emoji' !important;
-	min-height: 180px;
+	min-height: 180px !important;
 	direction: rtl;
 }
