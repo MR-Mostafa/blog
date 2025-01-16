@@ -5,11 +5,40 @@ type Props = {
 	class?: string;
 };
 
+type Category = { name: string; id: string };
+
+const baseCategory: Category = {
+	name: 'General',
+	id: 'DIC_kwDONmgrk84Cl1wr',
+};
+
+const dynamicCategories: Category[] = [
+	{
+		name: 'Blog',
+		id: 'DIC_kwDONmgrk84CmDkV',
+	},
+	{
+		name: 'Contributes',
+		id: 'DIC_kwDONmgrk84CmDki',
+	},
+];
+
+const findInCategory = (value: string | undefined) => {
+	if (!value) return baseCategory;
+
+	return dynamicCategories.find((item) => item.name.toLowerCase() === value.toLowerCase()) ?? baseCategory;
+};
+
+const pathName = Astro.url.pathname.split('/').filter(Boolean);
+
+const category = findInCategory(pathName[0]);
+
 const { class: className } = Astro.props;
 ---
 
 <giscus-component>
-	<div id="giscus" class={cn('giscus mt-3 px-0.5 sm:mt-6', className)}></div>
+	<div id="giscus" class={cn('giscus mt-3 px-0.5 sm:mt-6', className)} data-category-name={category.name} data-category-id={category.id}>
+	</div>
 </giscus-component>
 
 <script>
@@ -33,17 +62,21 @@ const { class: className } = Astro.props;
 			script.async = true;
 			script.crossOrigin = 'anonymous';
 
+			const categoryName = giscusElem.getAttribute('data-category-name')!;
+			const categoryId = giscusElem.getAttribute('data-category-id')!;
+			const baseUrl = window.location.origin;
+
 			const config = {
 				'data-repo': 'MR-Mostafa/blog',
 				'data-repo-id': 'R_kgDONmgrkw',
-				'data-category': 'Comments',
-				'data-category-id': 'DIC_kwDONmgrk84Cl1wr',
+				'data-category': categoryName,
+				'data-category-id': categoryId,
 				'data-mapping': 'pathname',
-				'data-strict': '0',
+				'data-strict': '1',
 				'data-reactions-enabled': '1',
 				'data-emit-metadata': '0',
 				'data-input-position': 'bottom',
-				'data-theme': localStorage?.theme === 'light' ? 'light' : 'dark',
+				'data-theme': localStorage?.theme === 'light' ? `${baseUrl}/styles/giscus/light.css` : `${baseUrl}/styles/giscus/dark.css`,
 				'data-lang': 'fa',
 				'data-loading': 'lazy',
 			};
