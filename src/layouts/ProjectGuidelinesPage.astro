@@ -7,6 +7,7 @@ import { BackToTop, TOC } from 'astro-pure/components/pages';
 import { Button } from 'astro-pure/user';
 import { cn } from 'astro-pure/utils';
 import GiscusComment from '@/components/giscusComment.astro';
+import Share from '@/components/share.astro';
 import PageLayout from '@/layouts/BaseLayout.astro';
 import { integ } from '@/site-config';
 
@@ -44,21 +45,25 @@ const isTocPage = Astro.url.pathname.toLowerCase() === tocPage;
 		}
 
 		<article class="min-w-0 grow md:order-2" data-pagefind-body>
-			<div id="content-header" class={cn('animate', { 'flex items-start justify-start gap-1.5': !!reference })}>
-				<h1 class="text-2xl font-medium sm:mb-2 sm:text-3xl">
-					{title}
-				</h1>
-				{
-					reference && (
-						<span class="-translate-y-0.5 text-xs">
-							[
-							<a href={reference} rel="noopener noreferrer" target="_blank">
-								منبع
-							</a>
-							]
-						</span>
-					)
-				}
+			<div class="animate relative z-20 flex flex-col items-start justify-between gap-3 pb-2 pt-1 md:flex-row md:items-center">
+				<div id="content-header" class={cn('flex-shrink-0', { 'flex items-start justify-start gap-1.5': !!reference })}>
+					<h1 class="text-2xl font-medium sm:mb-2 sm:text-3xl">
+						{title}
+					</h1>
+					{
+						reference && (
+							<span class="-translate-y-0.5 text-xs">
+								[
+								<a href={reference} rel="noopener noreferrer" target="_blank">
+									منبع
+								</a>
+								]
+							</span>
+						)
+					}
+				</div>
+
+				<Share title={title} class={{ wrapper: 'self-center' }} />
 			</div>
 
 			{
