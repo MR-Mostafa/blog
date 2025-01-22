@@ -1,0 +1,116 @@
+---
+import type { MarkdownHeading, MarkdownLayoutProps } from 'astro';
+
+import { Image } from 'astro:assets';
+
+import { BackToTop, TOC } from 'astro-pure/components/pages';
+import { Button } from 'astro-pure/user';
+import { cn } from 'astro-pure/utils';
+import GiscusComment from '@/components/giscusComment.astro';
+import PageLayout from '@/layouts/BaseLayout.astro';
+import { integ } from '@/site-config';
+
+type Props = MarkdownLayoutProps<{
+	title: string;
+	reference?: string;
+	description: string;
+	heroImage?: { src: string; width: number; height: number; alt?: string; class?: string };
+	nextPage?: { href: string; title: string };
+	prevPage?: { href: string; title: string };
+	tags?: string[];
+}> & {
+	headings: MarkdownHeading[];
+};
+
+const { frontmatter, headings } = Astro.props;
+const { title, reference, description, heroImage, prevPage, nextPage, tags } = frontmatter;
+const socialImage = heroImage?.src ?? '/images/social-card.png';
+
+const indexPage = '/contributes/project-guidelines';
+const tocPage = '/contributes/project-guidelines/toc';
+const isIndexPage = Astro.url.pathname.toLowerCase() === indexPage;
+const isTocPage = Astro.url.pathname.toLowerCase() === tocPage;
+---
+
+<PageLayout meta={{ title, description, ogImage: socialImage, keywords: tags }}>
+	{isTocPage && <Button title="بازگشت به صفحه توضیحات" href={indexPage} style="back" />}
+	{!(isIndexPage || isTocPage) && <Button title="بازگشت به فهرست مطالب" href={`${indexPage}/toc`} style="back" />}
+
+	<main class="mt-8 items-start gap-x-10 md:flex">
+		{
+			!!headings.length && (
+				<TOC class="animate top-24 min-w-48 basis-60 self-start max-md:hidden md:sticky md:order-1 lg:shrink-0" {headings} />
+			)
+		}
+
+		<article class="min-w-0 grow md:order-2" data-pagefind-body>
+			<div id="content-header" class={cn('animate', { 'flex items-start justify-start gap-1.5': !!reference })}>
+				<h1 class="text-2xl font-medium sm:mb-2 sm:text-3xl">
+					{title}
+				</h1>
+				{
+					reference && (
+						<span class="-translate-y-0.5 text-xs">
+							[
+							<a href={reference} rel="noopener noreferrer" target="_blank">
+								منبع
+							</a>
+							]
+						</span>
+					)
+				}
+			</div>
+
+			{
+				!!heroImage && (
+					<Image
+						alt={heroImage.alt || title}
+						class={cn(
+							'cover-image relative z-10 !my-6 mx-auto h-auto w-full max-w-36 overflow-clip rounded-2xl object-contain shadow-[0px_0px_18px_-3px_#ffffff61]',
+							{ 'max-w-[85ch]': isIndexPage },
+							heroImage.class,
+						)}
+						fetchpriority="high"
+						loading="eager"
+						src={heroImage.src}
+						width={heroImage.width}
+						height={heroImage.height}
+					/>
+				)
+			}
+
+			<div id="content" class={cn('animate mt-8 max-w-none md:min-w-[45ch]', integ.typography.class)}>
+				<slot />
+			</div>
+
+			{
+				!!(nextPage || prevPage) && (
+					<nav
+						class={cn('flex select-none flex-col items-center justify-center gap-4 pb-8 pt-8 sm:flex-row sm:justify-between', {
+							'!justify-end': !nextPage,
+						})}
+					>
+						{!!nextPage && <Button title={nextPage.title} href={nextPage.href} style="ahead" class="w-full justify-center sm:w-auto" />}
+
+						{!!prevPage && <Button title={prevPage.title} href={prevPage.href} style="back" class="w-full justify-center sm:w-auto" />}
+					</nav>
+				)
+			}
+		</article>
+	</main>
+
+	{
+		!(isIndexPage || isTocPage) && (
+			<div class="mt-6 items-start gap-x-10 md:flex md:flex-row-reverse">
+				<div class="mt-8 flex-1 text-muted-foreground md:min-w-[50ch]">
+					{/* Comment */}
+					<GiscusComment />
+				</div>
+
+				{headings.length !== 0 && <div class="min-w-48 basis-60" />}
+			</div>
+		)
+	}
+
+	<BackToTop header="content-header" content="content" />
+</PageLayout>

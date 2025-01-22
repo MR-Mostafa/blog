@@ -1,6 +1,8 @@
 ---
 import type { CardListData } from '../../types';
 
+import { cn } from 'astro-pure/utils';
+
 import Collapse from '../user/Collapse.astro';
 import CardListChildren from './CardListChildren.astro';
 
@@ -12,14 +14,14 @@ type Props = CardListData & {
 const { title, list, collapse, class: className } = Astro.props;
 ---
 
-<div class={className}>
+<div>
 	{
 		collapse ? (
-			<Collapse title={title} class="not-prose">
+			<Collapse title={title} class={cn('not-prose', className)}>
 				<CardListChildren children={list} />
 			</Collapse>
 		) : (
-			<div class="not-prose my-3 flex flex-col gap-y-2 rounded-xl border px-4 py-3 sm:py-4">
+			<div class={cn('not-prose my-3 flex flex-col gap-y-2 rounded-xl border px-4 py-3 sm:py-4', className)}>
 				<p class="text-lg font-medium text-foreground">{title}</p>
 				<CardListChildren children={list} />
 			</div>

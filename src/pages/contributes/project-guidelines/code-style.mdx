@@ -1,0 +1,107 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'سبک کدنویسی (Code Style)'
+description: 'این مجموعه راهنما به اهمیت رعایت سبک کدنویسی، استفاده از ابزارهایی مانند ESLint و Prettier، و نگه‌داشتن کد در حالتی تمیز و منسجم تأکید دارد. همچنین نکاتی در مورد نام‌گذاری، سازمان‌دهی توابع، استفاده از Git Hooks و به‌روزرسانی مداوم کامنت‌ها ارائه شده است که همگی به بهبود کیفیت و قابلیت نگه‌داری کد کمک می‌کنند.'
+reference: 'https://github.com/elsewhencode/project-guidelines?tab=readme-ov-file#7-code-style'
+tags: ['سبک کدنویسی', 'استایل کدنویسی', 'Code Style', 'ESLint', 'Prettier', 'تضمین کیفیت کد', 'Git Hook', 'نام‌گذاری توابع و متغیرها']
+heroImage: {src: '/images/project-guidelines/code-style.png', width: 135, height: 135}
+nextPage: {title: 'ثبت وقایع (Logging)', href: '/contributes/project-guidelines/logging'}
+prevPage:  {title: 'ساختار و نام‌گذاری (Structure and Naming)', href: '/contributes/project-guidelines/structure-and-naming'}
+---
+
+import { Collapse } from 'astro-pure/user';
+
+## برخی اصول Code Style
+
+- در پروژه‌های جدید از ویژگی‌های جدید جاوااسکریپت (Stage 2 و بالاتر) بهره ببرید. برای پروژه‌های قدیمی، در صورت عدم تمایل به مهاجرت، سینتکس قبلی را حفظ کنید، مگر اینکه قصد به‌روزرسانی آن را داشته باشید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این موضوع به تصمیم شما بستگی دارد. بهره‌گیری از ترنسپایلرها (مانند Babel) استفاده از قابلیت‌های جدید زبان را آسان می‌کند. ویژگی‌های Stage 2 معمولاً با تغییرات جزئی بخشی از استاندارد زبان خواهند شد.
+</Collapse>
+
+- از اجرای بررسی سبک کدنویسی (Code Style) به‌عنوان بخشی از فرآیند Build پروژه، اطمینان حاصل کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+اگر خطاهای مربوط به سبک کدنویسی جلوی Build را بگیرند، توسعه‌دهندگان مجبور می‌شوند قوانین را رعایت کنند. این روش هم در کد سمت کاربر (Client) و هم در سمت سرور (Server) قابل اجراست. ([توضیحات بیشتر ...](https://www.robinwieruch.de/react-eslint-webpack-babel/))
+</Collapse>
+
+- برای بررسی و اعمال سبک کدنویسی از [ESLint](http://eslint.org/) استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+ما `eslint` را ترجیح می‌دهیم، اما شما می‌توانید انتخاب دیگری داشته باشید. این ابزار قوانین بیشتری را پشتیبانی می‌کند، همچنین قابلیت تنظیم و افزودن قوانین سفارشی را دارد.
+</Collapse>
+
+- ما از کد استایل [Airbnb](https://github.com/airbnb/javascript) برای جاوااسکریپت استفاده می‌کنیم، [بیشتر بخوانید](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details). شما نیز می‌توانید هر کد استایلی که با نیاز پروژه یا تیمتان همخوانی دارد، به کار بگیرید.
+
+- هنگام استفاده از [FlowType](https://flow.org/)، از پلاگین‌های مربوط به بررسی [سبک کدنویسی Flow برای ESLint](https://github.com/gajus/eslint-plugin-flowtype) بهره ببرید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+با استفاده از Flow اعضای تیم باید سبک کدنویسی خاصی را رعایت کنند.
+</Collapse>
+
+- برای مستثنی‌کردن فایل‌ها و پوشه‌ها از بررسی سبک کدنویسی، از فایل `.eslintignore` استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+به‌جای شلوغ کردن کد با کامنت‌های `eslint-disable`، برای مستثنی‌کردن فایل‌ها و پوشه‌ها از بررسی سبک کدنویسی، از فایل `.eslintignore` استفاده کنید.
+</Collapse>
+
+- تمام کامنت‌های `eslint-disable` خود را پیش از ارسال یک Pull Request حذف کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+ممکن است گاهی برای افزایش تمرکز روی یک بخش از منطق کد (Logic)، موقتاً بررسی سبک را غیرفعال کنید؛ اما به خاطر داشته باشید که پیش از ارسال Pull Request، این کامنت‌ها را جهت مطابقت کد با استانداردهای مشخص شده، حذف کنید.
+</Collapse>
+
+- با در نظر داشتن حجم و اندازه کار، از کامنت‌های `//TODO:` یا ایجاد یک تیکت، استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+استفاده از کامنت‌های `//TODO:` به شما و همکارانتان کمک می‌کند تا وظایف کوچک مانند بازنویسی یک تابع یا به‌روزرسانی یک توضیح را به خاطر بسپارند. برای وظایف بزرگ‌تر، از فرمت `//TODO(#3456)` که توسط قوانین `lint` اعمال می‌شود، استفاده کنید، که شماره‌ی داخل پرانتز به یک تیکت باز در سیستم مدیریت پروژه اشاره می‌کند.
+</Collapse>
+
+- همیشه کامنت‌ها را با تغییرات کد بروز نگه دارید. همچنین کدهایی که کامنت‌شده‌اند را نیز حذف کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+کد باید تا حد امکان خوانا باشد؛ بخش‌هایی از کد که استفاده نمی‌شوند را حذف کنید و کامنت‌ها را مطابق با تغییرات جدید به‌روزرسانی کنید. مثلاً اگر یک تابع را بازنویسی کردید، تابع قدیمی را فقط کامنت نکنید، بلکه آن را حذف کنید.
+</Collapse>
+
+- از نام‌ها یا کامنت‌های طنزآمیز یا غیرمرتبط پرهیز کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+اگرچه در فرآیند build برنامه، ممکن است آن کامنت‌ها و شوخی‌ها به صورت خودکار حذف شوند، اما در برخی موارد سورس کد به سایر شرکت‌ها یا مشتری‌ها منتقل می‌شود که ممکن است آن‌ها این نوع شوخی‌ها را نپسندند.
+</Collapse>
+
+- نام‌ها را به گونه‌ای انتخاب کنید که قابل جست‌وجو و معنادار باشند، از انتخاب نام‌های کوتاه‌شده و مخفف بپرهیزید. برای توابع، از نام‌های توصیفی و فعل‌محور استفاده کنید. نام تابع باید یک فعل یا عبارت فعلی باشد و هدف آن را به وضوح بیان کند.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار (استفاده از نام‌های کامل و توصیفی) باعث می‌شود کد خواناتر و درک آن راحت‌تر و ساده‌تر شود.
+</Collapse>
+
+- توابع را بر اساس «قانون نزولی» (Step-Down Rule) سازمان‌دهی کنید؛ به این صورت که توابع سطح بالاتر را در بالای فایل و توابع سطح پایین‌تر را در پایین فایل قرار دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار خوانایی کد را افزایش می‌دهد.
+</Collapse>
+
+<hr class="hr-dotted" />
+
+## اعمال استانداردهای کدنویسی
+
+از فایل `.editorconfig` استفاده کنید ([لینک](http://editorconfig.org/)) که به شما و سایر اعضای تیم کمک کند تا سبک‌های کدنویسی یکسانی را میان ویرایشگرها و IDEهای مختلف پروژه تعریف و حفظ کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+پروژه `EditorConfig` دربرگیرنده‌ی یک فایل برای تعریف سبک‌ و استال‌های کدنویسی است که شامل مجموعه‌ای از افزونه‌ها برای ویرایشگرها و IDEی مختلف است؛ که این امکان را می‌دهد که ویرایشگرها و IDEی مختلف از استایل‌های تعریف‌شده پیروی کنند.
+</Collapse>
+
+- ویرایشگر را به شیوه‌ای راه‌اندازی و تنظیم کنید که برای خطاهای سبک کدنویسی (Code Style) هشدار دهد. از ترکیب پلاگین‌های [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) و [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) در تنظیمات ESLint خود استفاده کنید. ([توضیحات بیشتر ...](https://github.com/prettier/eslint-config-prettier#installation))
+
+- استفاده از Git hooks را مدنظر قرار دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+با اجرای خودکار تست‌ها و بررسی Code Style پیش از Commit یا Push کردن تغییرات، می‌توانید مشکلات احتمالی را زودتر شناسایی کنید و از شکست Build پروژه در محیط‌‌های Staging یا Production جلوگیری کنید. ([توضیحات بیشتر ...](http://githooks.com/))
+</Collapse>
+
+- از Prettier همراه با precommit hook استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+اگرچه `prettier` به‌خودی‌خود قدرتمند است، اما اجرای دستی `prettier` چندان کارآمد نیست. با بهره‌گیری از `lint-staged` و `husky`، می‌توانید هنگام Commit، کد را به‌صورت خودکار قالب‌بندی کنید. درباره پیکربندی `lint-staged` ([اینجا](https://github.com/okonet/lint-staged#configuration)) و پیکربندی `husky` ([اینجا](https://github.com/typicode/husky)) می‌توانید بیشتر مطالعه کنید.
+</Collapse>

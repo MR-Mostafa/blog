@@ -1,0 +1,68 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'ساختار و نام‌گذاری (Structure and Naming)'
+description: 'سازمان‌دهی فایل‌ها حول محور ویژگی‌ها و کامپوننت‌ها، نگه‌داری فایل‌های تست در کنار کد مربوطه، تفکیک تنظیمات در پوشه‌ی config و قرار دادن فایل‌های خروجی ساخت در پوشه‌ای مانند build، همگی موجب بهبود همکاری تیمی و ساده‌تر شدن فرآیند توسعه می‌شوند.'
+reference: 'https://github.com/elsewhencode/project-guidelines?tab=readme-ov-file#6-structure-and-naming'
+tags: ['ساختار پروژه', 'structure', 'بهترین روش نام‌گذاری', 'مدیریت پیکربندی', 'نام‌گذاری فایل‌ها']
+heroImage: {src: '/images/project-guidelines/structure-and-naming.png', width: 135, height: 135}
+nextPage: {title: 'سبک کدنویسی (Code Style)', href: '/contributes/project-guidelines/code-style'}
+prevPage:  {title: 'تست کردن (Testing)', href: '/contributes/project-guidelines/testing'}
+---
+
+import { Collapse } from 'astro-pure/user';
+
+- از سازمان‌دهی فایل‌ها بر اساس نقش (مانند قرار دادن همه فایل‌های `controllers` در یک پوشه و تمام فایل‌های `models` در پوشه‌ای دیگر) خودداری کنید. همچنین فایل‌های تست همان بخش را هم در همان پوشه بگذارید.
+
+
+```md title="ساختار نامطلوب"
+.
+├── controllers
+|   ├── product.js
+|   └── user.js
+├── models
+|   ├── product.js
+|   └── user.js
+```
+
+<br />
+
+```md title="ساختار مطلوب"
+.
+├── product
+|   ├── index.js
+|   ├── product.js
+|   └── product.test.js
+├── user
+|   ├── index.js
+|   ├── user.js
+|   └── user.test.js
+```
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+به جای داشتن یک لیست طولانی از فایل‌ها، با داشتن ماژول‌های کوچک با مسئولیت‌های مشخص و خاص، می‌توانید دسترسی به فایل‌ها را ساده‌تر کرده و زمان جستجو را برای پیدا کردن یک فایل کاهش دهید.
+</Collapse>
+
+- اگر تستی وجود دارد که به یک فایل خاص مرتبط نیست، آن را در پوشه‌ای با نام‌های متداولی مانند `test` یا `__test__` قرار دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار از سردرگمی جلوگیری کرده و باعث می‌شود سایر هم‌تیمی‌ها یا کارشناسان DevOps راحت‌تر بتوانند فایل‌های تست را پیدا کرده و نیز موجب صرفه‌جویی در زمان می‌شود.
+</Collapse>
+
+- از یک پوشه به نام `./config` برای تنظیمات استفاده کنید و از ایجاد فایل‌های پیکربندی جداگانه برای هر محیط (`development`، `test`، `production`) خودداری کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+در صورت افزایش استقرار (deployment)های برنامه، ممکن است محیط‌های بیشتری به پروژه اضافه شود و مدیریت آن‌ها پیچیده شود. بهتر است تنظیمات را در یک پوشه‌ی مشخص مانند `config` قرار دهید و مقادیر مورد نیاز را از طریق متغیرهای محیطی (environment variables) دریافت کنید. ([توضیحات بیشتر ...](https://medium.com/@fedorHK/no-config-b3f1171eecd5))
+</Collapse>
+
+- اسکریپت‌های `bash`، `node` و یا هر اسکریپت اجرایی دیگری را در پوشه‌ی `./scripts` نگه دارید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+معمولاً به بیش از یک اسکریپت نیاز خواهید داشت (مانند اسکریپت ساخت نسخه production، ساخت نسخه توسعه development، اسکریپت‌های مرتبط با پایگاه داده و غیره).
+</Collapse>
+
+- فایل‌های تولیدشده (مانند فایل‌های bundle، کامپایل‌شده، و ترنسپایل‌شده) را در پوشه‌ی `./build` قرار دهید و در فایل `.gitignore` نیز آن را مستثنی کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+نام‌گذاری آن به سلیقه شما بستگی دارد، `dist` نیز گزینه خوبی است، ولی این نام‌گذاری را با تیم خود هماهنگ کنید. فایل‌هایی که در این پوشه قرار می‌گیرند،  قابل تولید مجدد هستند و هم‌تیمی‌ها شما نیز باید قادر به تولید آن باشند؛ در نتیجه نیازی به قراردادن آن‌ها در مخزن گیت نیست، مگر در شرایط خاص.
+</Collapse>

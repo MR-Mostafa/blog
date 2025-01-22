@@ -1,0 +1,57 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'تست کردن (Testing)'
+description: 'این راهنما بر اهمیت ایجاد محیطی مناسب برای تست، نوشتن کد قابل تست (به‌ویژه توابع خالص)، استفاده از ابزارهای بررسی نوع، و مستندسازی فرآیند تست تأکید دارد. با رعایت این نکات، هم کارایی تست‌ها و هم کیفیت خروجی پروژه افزایش می‌یابد.'
+reference: 'https://github.com/elsewhencode/project-guidelines?tab=readme-ov-file#5-testing'
+tags: ['محیط تست', 'توابع خالص', 'Pure Function', 'راهنمای تست پروژه‌', 'test', 'کد قابل تست']
+heroImage: {src: '/images/project-guidelines/testing.png', width: 135, height: 135}
+nextPage: {title: 'ساختار و نام‌گذاری (Structure and Naming)', href: '/contributes/project-guidelines/structure-and-naming'}
+prevPage:  {title: 'وابستگی‌ها (Dependencies)', href: '/contributes/project-guidelines/dependencies'}
+---
+
+import { Collapse } from 'astro-pure/user';
+
+- در صورت نیاز، یک محیط تست (test environment) ایجاد کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+در برخی پروژه‌ها، تست End-to-End در محیط `production` ممکن است کافی به نظر برسد، اما مواقعی پیش می‌آید که یک محیط تست جداگانه ضروری است. به‌عنوان مثال، ممکن است مایل نباشید در حالت `production` داده‌های آزمایشی ایجاد کنید یا اطلاعات تحلیلی کاربران را تحت تأثیر قرار دهید. همچنین ممکن است API شما در حالت `production` دارای محدودیت تعداد درخواست (rate limit) باشد که اجرای تست‌ها را در آن دشوار کند.
+</Collapse>
+
+- فایل‌های تست را در کنار فایل اصلی قرار دهید. با استفاده از الگوی نام‌گذاری خاصی مانند `*.test.js` یا `*.spec.js`، مانند `moduleName.spec.js`.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+تا به‌راحتی قابل یافتن باشند و نیاز به جستجو و پیمایش در ساختار پروژه نباشد. ([توضیحات بیشتر ...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc))
+</Collapse>
+
+- ممکن است برخی از تست‌ها به فایل‌های پیاده‌سازی خاصی مربوط نباشد، دراین‌صورت آن‌ها را در یک دایرکتوری مجزا قرار دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+ممکن است برخی از تست‌ها به فایل‌های پیاده‌سازی خاصی مربوط نباشد، دراین‌صورت آن‌ها را در یک دایرکتوری مجزا مانند `__test__` قرار دهید. این نام‌گذاری `__test__` هم اکنون یک استاندارد است و در اکثر فریم‌ورک‌های تست جاوااسکریپت نیز شناخته شده می‌باشند.
+</Collapse>
+
+- کدهایی بنویسید که منطقی واضح داشته باشند و بتوان آن‌ها را مستقل از هر عامل خارجی (side effect) آزمایش کرد و نتیجه یکسان بدهد (pure functions).
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+- هر بخش از منطق کسب‌وکار (business logic) باید به صورت مستقل و جداگانه مورد آزمایش و تست قرار گیرد تا مطمئن شوید که آن بخش‌ها به درستی کار می‌کند. باید "تأثیر عوامل تصادفی یا فرآیندهای غیرقابل‌پیش‌بینی را در کد به حداقل برسانید" [توضیحات بیشتر ...](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
+
+- یک تابع خالص (pure function) تابعی است که همیشه برای ورودی یکسان، خروجی یکسانی را باز می‌گرداند. برعکس، یک تابع ناخالص (impure function) تابعی است که ممکن است اثرات جانبی داشته باشد یا برای تولید یک مقدار به شرایط خارجی وابسته باشد، که این امر باعث می‌شود کمتر قابل پیش‌بینی باشد. [توضیحات بیشتر ...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
+</Collapse>
+
+- از یک Static Type Checker استفاده کنید
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+ابزارهایی مانند Flow یا TypeScript می‌توانند با بررسی نوع (Type) متغیرها و توابع، سطح اطمینان کد را بالا ببرند و از بروز خطاهای پیش‌بینی‌نشده جلوگیری کنند. ([توضیحات بیشتر ...](https://medium.freecodecamp.org/why-use-static-types-in-javascript-part-1-8382da1e0adb))
+</Collapse>
+
+- پیش از آنکه درخواست pull request به برنچ `develop` ارسال کنید، تست‌ها را به‌صورت locally اجرا کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+همیشه پیش از ارسال Pull Request، تست‌ها را در سیستم محلی (local) خود اجرا کنید و مطمئن شوید که هیچ موردی باعث شکست فرآیند Build در برنچ `develop` یا `production` نمی‌شود.
+</Collapse>
+
+- در فایل `README.md` (یا هر مستند دیگری که پروژه استفاده می‌کند)، نحوه اجرای تست‌ها و نیازمندی‌های مرتبط را توضیح دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این مستندات مانند یک یادداشت راهنما است که برای سایر اعضای تیم، کارشناسان DevOps، یا تیم تضمین کیفیت (QA) و هر کسی که با کد شما کار می‌کند، مفید خواهد بود.
+</Collapse>

@@ -1,0 +1,13 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'فهرست مطالب دستورالعمل‌های پروژه'
+description: 'پروژه Project Guidelines مجموعه‌ای جامع از بهترین شیوه‌ها برای توسعه پروژه‌های جاوااسکریپت است که توسط Elsewhen در گیت‌هاب منتشر شده است. این دستورالعمل‌ها شامل توصیه‌هایی در زمینه‌های مختلفی مانند استفاده از گیت، مستندسازی، محیط‌های توسعه، وابستگی‌ها، تست، ساختار و نام‌گذاری، سبک کدنویسی، طراحی API، امنیت API، مستندسازی API، دسترس‌پذیری و مجوزها می‌باشد.'
+tags: ['راهنمای پروژه‌', 'project guidelines', 'مستندسازی', 'دستورالعمل‌', 'جاوااسکریپت', 'ترجمه project guidelines']
+---
+
+import { CardList } from 'astro-pure/user';
+
+import { projectGuidelinesTocList as tocList } from './tocList';
+
+<CardList {...tocList} class='[&>ul>li:not(:first-child)]:pt-2.5 [&>ul>li]:list-decimal [&>ul]:pr-1' />

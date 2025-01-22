@@ -1,6 +1,7 @@
 main {
 	font-family: 'Vazirmatn RD', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 		'Noto Color Emoji' !important;
+	width: 99.9% !important;
 }
 
 main textarea {

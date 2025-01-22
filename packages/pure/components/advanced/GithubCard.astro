@@ -2,20 +2,21 @@
 import { Icon } from '../user';
 
 type Props = {
-	url: string;
+	repo: string;
+	pageUrl?: string;
 	title: string;
 	description: string;
 };
 
-const { url, title, description } = Astro.props;
+const { repo, pageUrl, title, description } = Astro.props;
 
 // Remove 'https://github.com/' headings from the repo string
-const repo = url.replace(/^https:\/\/github\.com\//, '');
+const repoUrl = repo.replace(/^https:\/\/github\.com\//, '');
 ---
 
-<github-card class="not-prose loading" data-repo={repo}>
+<github-card class="not-prose loading" data-repo={repoUrl}>
 	<a
-		href={`https://github.com/${repo}`}
+		href={pageUrl ? pageUrl : `https://github.com/${repoUrl}`}
 		target="_blank"
 		class="group flex flex-col gap-y-2 rounded-xl border border-border px-5 py-4 transition-colors hover:bg-muted hover:text-muted-foreground"
 	>
@@ -29,7 +30,7 @@ const repo = url.replace(/^https:\/\/github\.com\//, '');
 			</div>
 		</div>
 
-		<p id="gh-description" class="gh-text">{description}</p>
+		<p id="gh-description" class="gh-text text-sm text-muted-foreground">{description}</p>
 
 		<div class="flex items-center justify-between pt-2 text-sm">
 			<div class="gh-text flex flex-wrap items-center gap-x-5">

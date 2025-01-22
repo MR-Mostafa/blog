@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { GithubCard } from 'packages/pure/components/advanced';
 
 import { PostPreview } from 'astro-pure/components/pages';
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server';
@@ -70,9 +71,14 @@ const meta = {
 				)
 			}
 
-			<!-- <Section title="پروژه‌ها">
-				<GithubCard title="وی‌اکت (Viact)" description="تست توضیحات" url="MR-Mostafa/viact" />
-			</Section> -->
+			<Section title="مشارکت‌ها">
+				<GithubCard
+					title="ترجمه دستورالعمل‌های پروژه - Project Guidelines"
+					description="پروژه Project Guidelines مجموعه‌ای جامع از بهترین شیوه‌ها برای توسعه پروژه‌های جاوااسکریپت است که شامل موضوعاتی مانند گیت، مستندسازی، تست و طراحی API و … می‌باشد. با افتخار در ترجمه‌ی کامل مستندات آن به زبان فارسی مشارکت داشته‌ام و هم‌اکنون ترجمه فارسی آن در فایل README-ir.md موجود است."
+					repo="elsewhencode/project-guidelines"
+					pageUrl="/contributes/project-guidelines"
+				/>
+			</Section>
 		</div>
 	</main>
 </PageLayout>

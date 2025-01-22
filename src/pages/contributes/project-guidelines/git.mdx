@@ -1,0 +1,190 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'گیت (Git)'
+description: 'در کار با Git، رعایت مجموعه‌ای از قوانین و اصول ضروری است که در ادامه به آن‌ها اشاره شده است'
+reference: 'https://github.com/elsewhencode/project-guidelines?tab=readme-ov-file#git'
+tags: ['git', 'قوانین git', 'گیت', 'Git workflow', 'gitignore', 'gitflow']
+heroImage: {src: '/images/project-guidelines/git.png', width: 135, height: 135}
+nextPage: {title: 'مستندات (Documentation)', href: '/contributes/project-guidelines/documentation'}
+prevPage: {title: 'فهرست مطالب', href: '/contributes/project-guidelines/toc'}
+---
+
+import { Collapse, Aside } from 'astro-pure/user';
+
+## برخی از قوانین Git
+
+در کار با Git، رعایت مجموعه‌ای از قوانین و اصول ضروری است که در ادامه به آن‌ها اشاره شده است:
+
+- کار را در برنچ `feature` انجام دهید
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+کار بر روی برنچ‌ feature باعث می‌شود تمام تغییرات به صورت مجزا و در یک برنچ اختصاصی اعمال شوند. این روش به شما این امکان را می‌دهد که چندین Pull Request ارسال کنید بدون اینکه دچار سردرگمی شوید. همچنین، می‌توانید کد خود را مکرراً به‌روزرسانی کنید، بدون اینکه برنچ اصلی را با کدهای ناپایدار و ناتمام آلوده کنید. ([توضیحات بیشتر ...](https://www.atlassian.com/git/tutorials/comparing-workflows#feature-branch-workflow))
+</Collapse>
+
+- از برنچ `develop` انشعاب بگیرید
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+با انشعاب از برنچ `develop،` می‌توانید مطمئن باشید که کد موجود در برنچ `master` همیشه پایدار و قابل `build` است و معمولاً می‌توان آن را مستقیماً برای انتشار/releases استفاده کرد (البته این رویکرد ممکن است برای برخی از پروژه‌ها بیش از حد یا فراتر از نیاز باشد).
+</Collapse>
+
+- هرگز به برنچ `develop` یا `master` مستقیماً Push نکنید، بلکه یک درخواست Pull Request ایجاد کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+هرگز به برنچ‌های `develop` یا `master` مستقیماً Push نکنید. به جای آن، یک Pull Request ایجاد کنید. این کار به اعضای تیم اطلاع می‌دهد که یک feature تکمیل شده است و امکان بررسی کد توسط سایرین و بحث درباره تغییرات را فراهم می‌کند.
+</Collapse>
+
+- قبل از Push کردن یک فیچر و ایجاد Pull Request، ابتدا برنچ `develop` محلی/local خود را به‌روزرسانی کنید و یک ری‌بیس (Rebase) تعاملی انجام دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+قبل از ارسال Pull Request، برنچ `develop` یا `master` محلی خود را به‌روزرسانی کرده و Rebase تعاملی انجام دهید. Rebase تغییرات محلی شما را به بالای تاریخچه انتقال می‌دهد و از ایجاد Commitهای غیرضروری جلوگیری می‌کند. این کار باعث تمیز و مرتب شدن تاریخچه Commitها می‌شود. ([توضیحات بیشتر ...](https://www.atlassian.com/git/tutorials/merging-vs-rebasing))
+</Collapse>
+
+- تعارضات احتمالی را در حین `rebase` برطرف کنید و سپس Pull Request ایجاد کنید. (این کار به شفافیت و کیفیت کد کمک می‌کند.)
+
+- برنچ‌های `feature` ایجاد شده، پس از اتمام کار و ادغام باید حذف شوند (در `local` و `remote`).
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+حذف برنچ‌های ادغام شده باعث می‌شود لیست برنچ‌ها شلوغ نشود و هر برنچ تنها یک بار به برنچ اصلی (`master` یا `develop`) ادغام شود. برنچ‌های `feature` فقط باید تا زمانی که کار هنوز در حال انجام است، وجود داشته باشند.
+</Collapse>
+
+- قبل از ایجاد Pull Request، مطمئن شوید که برنچ `feature` شما به درستی `build` می‌شود و تمامی تست‌ها (از جمله بررسی سبک و استایل کدنویسی) موفقیت‌آمیز هستند.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+زمانی‌که شما تصمیم دارید کد خود را به یک برنچ stable اضافه کنید، اگر تست‌های برنچ `feature` محلی/local ناموفق باشند، احتمال زیادی وجود دارد که `build` برنچ مقصد نیز با خطا مواجه شود. علاوه بر این، قبل از ایجاد درخواست Pull Request، ضروری است که بررسی سبک و استایل کدنویسی انجام گردد. زیرا این کار باعث بهبود خوانایی و استانداردسازی کد می‌شود و  از شکست احتمالی `build` برنچ مقصد جلوگیری می‌کند.
+</Collapse>
+
+- [از فایل](https://github.com/elsewhencode/project-guidelines/blob/master/.gitignore) `.gitignore` استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+فایل `.gitignore` فایل‌ها و دایرکتوری‌هایی که نباید به مخزن `remote` ارسال شوند (مانند فایل‌های سیستمی و تنظیمات ویرایشگرها) را مستثنی می‌کند. این کار از ارسال فایل‌های غیرضروری جلوگیری می‌کند.
+</Collapse>
+
+- از برنچ‌های `develop` و `master` محافظت کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار از برنچ‌های آماده برای production در برابر دریافت تغییرات غیرمنتظره و غیرقابل بازگشت محافظت می‌کند. توضیحات بیشتر را برای [GitHub](https://help.github.com/articles/about-protected-branches/), [Bitbucket](https://confluence.atlassian.com/bitbucketserver/using-branch-permissions-776639807.html) و [GitLab](https://docs.gitlab.com/ee/user/project/protected_branches.html) بخوانید.
+</Collapse>
+
+<hr class="hr-dotted" />
+
+## گردش کار گیت (Git Workflow)
+
+با توجه به دلایل اشاره‌شده، ما از روش [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#feature-branch-workflow) به همراه [Interactive Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing) و برخی عناصر [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow) (مانند نام‌گذاری شاخه‌ها و استفاده از برنچ `develop`) بهره می‌بریم. مراحل کلی آن به‌صورت زیر است:
+
+- برای یک پروژه جدید، یک مخزن گیت (Git repository) را در پوشه پروژه ایجاد کنید. برای ویژگی‌ها یا تغییرات بعدی، دیگر نیازی به انجام این مرحله نیست.
+
+```sh
+cd <project directory>
+git init
+```
+
+- یک شاخه جدید برای توسعه یک `feature` یا رفع یک `bug` ایجاد کنید و به آن سوئیچ کنید.
+
+```sh
+git checkout -b <branchname>
+```
+
+- اعمال تغییرات در فایل‌ها و ثبت آن‌ها
+
+```sh
+git add <file1> <file2> ...
+git commit
+```
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+- با دستور `git add <file1> <file2> ...` باید تنها فایل‌هایی را اضافه کنید که یک تغییر کوچک و منسجمی را تشکیل می‌دهند.
+
+- دستور `git commit` یک ویرایشگری را باز می‌کند که در آن می‌توانید متن کامیت خود را با جداسازی بخش موضوع (`subject`) از بدنه (`body`) بنویسید.
+
+- در [بخش بعدی](#نگارش-بهتر-متن-کامیتها) درباره‌ی آن توضیح بیشتری داده شده است.
+
+  <Aside type='tip'>
+  می‌توانید به‌جای این دستور، از `git add -p` استفاده کنید تا تغییرات را به صورت مرحله‌به‌مرحله (hunk-by-hunk) بررسی کرده و تصمیم بگیرید کدام بخش در کامیت قرار بگیرد.
+  </Aside>
+</Collapse>
+
+- برنچ لوکال خود را با مخزن `remote` همگام‌سازی کنید تا تغییرات جدید را دریافت کنید.
+
+```sh
+git checkout develop
+git pull
+```
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار به شما این فرصت را می‌دهد که با conflictها در سیستم خود در حین rebasing و پیش از ارسال Pull Request مواجه شوید، به جای آنکه یک درخواست Pull Request ایجاد کنید که حاوی conflict و تضاد باشد.
+</Collapse>
+
+- برنچ `feature` خود را با استفاده از interactive rebase با آخرین تغییرات از برنچ `develop`، به‌روزرسانی کنید.
+
+```sh
+git checkout <branchname>
+git rebase -i --autosquash develop
+```
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+با گزینه‌ی `--autosquash` می‌توانید تمام کامیت‌های خود را در برنچ `feature` در یک کامیت ترکیب کنید تا تاریخچه مرتب‌تری داشته باشید. زیرا هیچ‌کس تمایل ندارد برای یک ویژگی، چندین کامیت پراکنده در برنچ `develop` داشته باشد. ([توضیحات بیشتر ...](https://robots.thoughtbot.com/autosquashing-git-commits))
+</Collapse>
+
+- اگر با conflictای مواجه شدید، [آن را برطرف کنید](https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/) و rebase را ادامه دهید، در غیر این صورت، می‌توانید این مرحله را نادیده بگیرید.
+
+```sh
+git add <file1> <file2> ...
+git rebase --continue
+```
+
+- برنچ خود را پس از ری‌بیس `push` کنید. از آنجا که rebase تاریخچه‌ی برنچ را تغییر می‌دهد، Git جلوی Push عادی را می‌گیرد؛ بنابراین باید از `-f` برای اعمال اجباری تغییرات استفاده کنید. اگر افراد دیگری نیز روی برنچ شما کار می‌کنند، بهتر است از گزینه کمتر مخرب `--force-with-lease` استفاده کنید.
+
+```sh
+git push -f
+```
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+وقتی که rebase انجام می‌دهید، گیت تاریخچه برنچ feature محلی را تغییر می‌دهید. در نتیجه، گیت جلوی Push عادی با استفاده از دستور `git push` را می‌گیرد. بنابراین باید از فلگ `-f` یا `--force` برای اعمال اجباری تغییرات استفاده کنید. ([توضیحات بیشتر ...](https://developer.atlassian.com/blog/2015/04/force-with-lease/))
+</Collapse>
+
+- پس از Push کردن برنچ، یک Pull Request خود را ایجاد کنید.
+
+- یک نفر از اعضای تیم یا مسئول بررسی کد، درخواست Pull Request را پس از بررسی، پذیرفته و آن را ادغام (Merge) کند، درنتیجه این درخواست بسته خواهد شد.
+
+- در صورت اتمام کار،برنچ `feature` محلی خود را حذف کنید.
+
+```sh
+git branch -d <branchname>
+```
+
+جهت حذف تمام برنچ‌های محلی که دیگر در مخزن remote وجود ندارند، از دستور زیر استفاده کنید. (برای تمیز نگه‌داشتن محیط توسعه و حذف برنچ‌های قدیمی)
+
+```sh
+git fetch -p && for branch in `git branch -vv --no-color | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done
+```
+
+<hr class="hr-dotted" />
+
+## نگارش بهتر متن کامیت‌ها
+
+داشتن راهنمای مناسب و پایبندی به آن برای نوشتن پیام‌های کامیت، همکاری با دیگران و نگهداری پروژه را بسیار ساده‌تر می‌کند. در اینجا چند قانون کلی وجود دارد ([منبع](https://chris.beams.io/posts/git-commit/#seven-rules)):
+
+- موضوع (`subject`) را از بدنه (`body`) جدا کنید و بین این دو بخش یک خط خالی بگذارید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+گیت به اندازه کافی هوشمند است که خط اول پیام کامیت شما را به‌عنوان خلاصه تشخیص دهد. اگر به‌جای استفاده از `git log` از `git shortlog` استفاده کنید، فقط این خط اول (خلاصه) را به همراه شناسه کامیت خواهید دید.
+</Collapse>
+
+- طول خط موضوع (`subject`) را تا 50 کاراکتر محدود نگه دارید و بدنه‌ی پیام (`body`) را حداکثر در 72 کاراکتر قرار دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار باعث می‌شود کامیت‌ها تا حد ممکن متمرکز و خوانا باشند؛ نیازی به طولانی‌نویسی نیست. ([توضیحات بیشتر](https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c))
+</Collapse>
+
+- حرف اول موضوع (`subject`) را با عبارت بزرگ (Capitalize) شروع کنید.
+
+- موضوع (`subject`) را با نقطه تمام نکنید.
+
+- از [وجه امری](https://en.wikipedia.org/wiki/Imperative_mood) در موضوع (`subject`) استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+به جای نوشتن پیام‌هایی که فقط بیانگر یا توصیف‌کننده کاری هستند، بهتر است متن کامیت را به عنوان یک دستورالعمل‌ در نظر بگیرید تا مشخص کنند که پس از ادغام کامیت در مخزن، چه کاری قرار است انجام شود. ([توضیحات بیشتر ...](https://news.ycombinator.com/item?id=2079612))
+</Collapse>
+
+- از قسمت بدنه (`body`) برای توضیح چرایی و چیستی کار انجام‌شده استفاده کنید، نه چگونگی انجام آن.

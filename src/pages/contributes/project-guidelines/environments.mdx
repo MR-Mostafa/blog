@@ -1,0 +1,89 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'متغیرهای محیطی (Environments)'
+description: 'این راهنما بر اهمیت تفکیک متغیرهای محیطی، ایجاد محیط‌های توسعه‌ی یکپارچه و هماهنگی وابستگی‌ها تأکید دارد. با رعایت نکات ذکرشده، می‌توانید پروژه‌ای پایدارتر، انعطاف‌پذیرتر و امن‌تر داشته باشید و همکاری با دیگران را نیز آسان‌تر کنید.'
+reference: 'https://github.com/elsewhencode/project-guidelines?tab=readme-ov-file#3-environments'
+tags: ['environment', 'env', 'متغیرهای محیطی', 'محیط توسعه', 'dependency', 'docker']
+heroImage: {src: '/images/project-guidelines/environments.png', width: 135, height: 135}
+nextPage: {title: 'وابستگی‌ها (Dependencies)', href: '/contributes/project-guidelines/dependencies'}
+prevPage:  {title: 'مستندات (Documentation)', href: '/contributes/project-guidelines/documentation'}
+---
+
+import { Collapse, Aside } from 'astro-pure/user';
+
+- در صورت نیاز، برای مراحل مختلف پروژه مانند `development`، `test` و `production،` محیط‌های جداگانه تعریف کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+هر محیط‌ (environment) مختلف ممکن است data، tokens، APIs، ports و... متفاوتی نیاز داشته باشند. به‌عنوان مثال، می‌توانید در حالت `development` از APIهای جعلی با داده‌های قابل پیش‌بینی استفاده کنید تا تست‌های دستی و خودکار ساده‌تر شوند. یا شاید بخواهید Google Analytics را فقط در محیط `production` فعال کنید و به همین ترتیب. ([توضیحات بیشتر ...](https://stackoverflow.com/questions/8332333/node-js-setting-up-environment-specific-configs-to-be-used-with-everyauth))
+</Collapse>
+
+- پیکربندی‌های مختص هر محیط را به عنوان مقادیر ثابت در کد قرار ندهید، بلکه از متغیرهای محیطی (environment variables) برای جدا کردن پیکربندی هر محیط استفاده کنید ([به این نمونه نگاه کنید](https://github.com/elsewhencode/project-guidelines/blob/master/config.sample.js)).
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+متغیرهای محیطی ممکن است شامل توکن‌ها، رمزعبورها و سایر اطلاعات حساس باشند. قرار دادن این اطلاعات در کد باعث می‌شود در صورت عمومی شدن کد، این اطلاعات نیز فاش شوند.
+</Collapse>
+
+<Collapse title="چگونه" class="not-prose mb-10" isOpen>
+- از فایل‌های `.env` برای ذخیره متغیرهای محیطی استفاده کنید و آن‌ها را در فایل `.gitignore` قرار دهید تا به مخزن remote ارسال نشوند.
+
+- در عوض، یک فایل `.env.example` را کامیت کنید تا توسعه‌دهندگان دیگر از آن به‌عنوان راهنما استفاده کنند.
+
+- برای محیط `production` همچنان به شیوه استاندارد متغیرهای محیطی را تنظیم کنید. ([توضیحات بیشتر](https://medium.com/@rafaelvidaurre/managing-environment-variables-in-node-js-2cb45a55195f))
+</Collapse>
+
+- پیش از اجرای برنامه، متغیرهای محیطی را (مثلاً با استفاده از کتابخانه‌ای مانند `joi`) اعتبارسنجی کنید تا خطاهای احتمالی زودتر شناسایی شوند. ([نمونه](https://github.com/elsewhencode/project-guidelines/blob/master/configWithTest.sample.js))
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار باعث می‌شود خطاهای احتمالی را زودتر شناسایی کنید و از هدررفتن ساعت‌ها مشکل‌یابی/troubleshooting توسط دیگران جلوگیری می‌کند.
+</Collapse>
+
+<hr class="hr-dotted" />
+
+## ایجاد محیط‌های توسعه‌ی یکپارچه (Consistent Dev Environments)
+
+- نسخه‌ی Node را در بخش `engines` در فایل `package.json` وارد کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+در بخش `engines`، نسخه‌ی Node را مشخص کنید تا سایر توسعه‌دهندگان بدانند پروژه با کدام نسخه کار می‌کند. ([توضیحات بیشتر ...](https://docs.npmjs.com/files/package.json#engines))
+</Collapse>
+
+- علاوه‌براین، از `nvm` استفاده کنید و یک فایل `.nvmrc` در ریشه‌ی پروژه ایجاد کنید و در مستندات به آن اشاره کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+تا هر کسی که از `nvm` استفاده می‌کند، بتواند به سادگی با اجرای `nvm use` بتواند به نسخه‌ی مناسب Node سوئیچ کند. ([توضیحات بیشتر ...](https://github.com/creationix/nvm))
+</Collapse>
+
+- می‌توانید یک اسکریپت `preinstall` تنظیم کنید تا نسخه‌های Node و npm را بررسی کند.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+زیرا برخی وابستگی‌ها (dependencies) ممکن است در صورت نصب توسط نسخه‌های جدیدتر npm دچار خطا شوند.
+</Collapse>
+
+- در صورت امکان از Docker استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار می‌تواند یک محیط سازگار در کل فرآیند کاری شما فراهم کند، بدون نیاز به تنظیمات یا وابستگی‌های پیچیده. ([توضیحات بیشتر …](https://hackernoon.com/how-to-dockerize-a-node-js-application-4fbab45a0c19))
+</Collapse>
+
+- از پکیج‌های محلی (local) به‌جای پکیج‌های سراسری (globally) استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کار به شما اجازه می‌دهد پکیج‌های استفاده شده را با همکارانتان به اشتراک بگذارید، به جای آنکه انتظار داشته باشید آن‌ها به‌صورت سراسری روی سیستم خود نصب کرده باشند.
+</Collapse>
+
+<hr class="hr-dotted" />
+
+## وابستگی‌های یکسان و هماهنگ (Consistent Dependencies)
+
+- اطمینان حاصل کنید که اعضای تیم دقیقاً همان وابستگی‌ها (dependencies) را مانند شما دریافت کنند.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+برای اطمینان از این‌که پروژه در هر محیطی یکسان اجرا می‌شود و خطاهای پیش‌بینی‌نشده رخ ندهد. ([توضیحات بیشتر ...](https://kostasbariotis.com/consistent-dependencies-across-teams/))
+</Collapse>
+
+<Collapse title="چگونه" class="not-prose mb-10" isOpen>
+- در نسخه‌های 5 یا بالاتر `npm`، از فایل `package-lock.json` استفاده کنید.
+- اگر از `npm` قدیمی‌تر از نسخه 5 استفاده می‌کنید، می‌توانید از `Yarn` بهره ببرید، مطمئن شوید در فایل `README.md` به این موضوع اشاره شده است. پس از هر به‌روزرسانی وابستگی‌ها، فایل lock file و فایل `package.json` باید با یکدیگر همخوانی داشته باشند. ([توضیحات بیشتر ...](https://yarnpkg.com/en/))
+- اگر `Yarn` را نمی‌پسندید، راه دیگری ندارید. در نسخه‌های قدیمی `npm`، هنگام نصب وابستگی جدید از `--save --save-exact` استفاده کنید و قبل از انتشار، فایل `npm-shrinkwrap.json` را بسازید. ([توضیحات بیشتر ...](https://docs.npmjs.com/files/package-locks))
+</Collapse>

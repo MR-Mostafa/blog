@@ -1,0 +1,84 @@
+---
+layout: '@/layouts/ProjectGuidelinesPage.astro'
+
+title: 'دسترس‌پذیری (Accessibility)'
+description: 'دسترس‌پذیری (Accessibility یا a11y) تضمین می‌کند که تمامی افراد، از جمله افرادی با ناتوانی‌های جسمی یا حسی، بتوانند از محتوای وب به‌راحتی استفاده کنند. در این راهنما، مراحل پیاده‌سازی و قوانین پایه برای ارتقای سطح دسترس‌پذیری پروژه‌ها توضیح داده شده است.'
+reference: 'https://github.com/elsewhencode/project-guidelines/blob/master/README.md#10-accessibility-a11y'
+tags: ['دسترس‌پذیری', 'a11y', 'accessibility', 'WCAG', 'طراحی واکنش‌گرا', 'روش‌های دسترس‌پذیری', 'قوانین دسترس‌پذیری', 'تضاد رنگی']
+heroImage: {src: '/images/project-guidelines/accessibility.png', width: 135, height: 135}
+nextPage: {title: مجوزها (Licensing), href: '/contributes/project-guidelines/licensing'}
+prevPage:  {title: 'ای‌پی‌آی (API)', href: '/contributes/project-guidelines/api'}
+---
+
+import { Collapse, Aside } from 'astro-pure/user';
+
+## پیاده‌سازی روش‌های دسترس‌پذیری
+برای اطمینان از حفظ دسترس‌پذیری، از همان ابتدا این قوانین را در پروژه خود اعمال کنید:
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+محتوای وب [به‌طور پیش‌فرض دسترسی‌پذیر](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML) است. این ویژگی زمانی به خطر می‌افتد که پیچیدگی‌های غیرضروری ایجاد شود. در نظر گرفتن دسترس‌پذیری از ابتدا بسیار آسان‌تر از تلاش برای بازبینی و اصلاح آن در مراحل بعدی است.
+</Collapse>
+
+- با استفاده از ابزارهایی مانند [lighthouse](https://developers.google.com/web/tools/lighthouse#devtools) یا افزونه [axe DevTools](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) برنامه‌ریزی‌هایی جهت بررسی ادواری [دسترسی‌پذیری](https://web.dev/lighthouse-accessibility/) به طور منظم انجام دهید. بر اساس نیاز پروژه، اهداف و امتیازات حداقلی‌ای برای دسترس‌پذیری تعیین و توافق کنید و این امتیازات را بر اساس [تأثیر کاربر](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#wcag-21-level-a--aa-rules) ارزیابی کنید.
+
+<Aside type='tip'>
+برخی از [بررسی‌های ضروری](https://web.dev/lighthouse-accessibility/#additional-items-to-manually-check) باید به‌صورت دستی انجام شوند، مانند ترتیب منطقی تب‌ها. این ابزارها معمولاً این موارد را به‌عنوان تست‌های دستی فهرست می‌کنند. در axe باید نتایج بررسی خودکار را ذخیره کنید تا این موارد را مشاهده کنید.
+</Aside>
+
+- یک لینتر (Linter) مرتبط برای بررسی دسترس‌پذیری نصب کنید:
+  - برای React: از [eslint-plugin-jsx-a11y](https://www.npmjs.com/package/eslint-plugin-jsx-a11y) استفاده کنید.
+  - برای Angular: از [Angular Codelyzer](https://github.com/mgechev/codelyzer) بهره ببرید.
+  - برای Vue: از [eslint-plugin-vuejs-accessibility](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility) استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این افزونه‌ها به‌صورت خودکار بخشی از الزامات اولیه دسترس‌پذیری را کنترل می‌کنند و پیاده‌سازی آن‌ها ساده است.
+</Collapse>
+
+- با استفاده از ابزارهایی مانند [axe-core](https://www.youtube.com/watch?v=-n5Ul7WPc3Y&list=PLMlWGnpsViOMt24a-Y_dybv68H-kj6Un6&t=1649s) یا مشابه آن، می‌توانید تست‌های دسترسی‌پذیری را راه‌اندازی و اجرا کنید.
+
+- اگر از Storybook استفاده می‌کنید، دستورالعمل‌های [آن](https://storybook.js.org/blog/accessibility-testing-with-storybook/) را دنبال کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این تست‌ها به شناسایی تغییراتی که ممکن است بر دسترس‌پذیری تأثیر منفی بگذارند کمک می‌کنند.
+</Collapse>
+
+- از دیزاین سیستم‌های منطبق بر دسترسی‌پذیری مانند [React Spectrum](https://react-spectrum.adobe.com/react-spectrum/) یا [Material Design](https://material.io/design) بهره ببرید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+این کامپوننت‌ها به‌صورت پیش‌فرض از سطح بالایی از دسترس‌پذیری برخوردار هستند.
+</Collapse>
+
+
+## قوانین پایه دسترس‌پذیری
+
+- از دسترس‌پذیر بودن نام لینک‌ها اطمینان حاصل کنید. از `aria-label` برای توصیف لینک‌ها استفاده کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+لینک‌های نامفهوم و غیرقابل دسترس می‌توانند برای دسترس‌پذیری موانعی ایجاد کنند.
+</Collapse>
+
+- اطمینان حاصل کنید که لیست‌ها به‌درستی ساختاربندی شده باشند تا معتبر و قابل درک باشند.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+لیست‌ها باید دارای عناصر والد و فرزند باشند تا معتبر و قابل درک باشند. صفحه‌خوان‌ها (Screen Readers) کمک می‌کند تا اطلاعات دقیق‌تری در مورد تعداد آیتم‌ها و ساختار لیست ارائه دهند.
+</Collapse>
+
+- از رعایت ترتیب معنایی سرفصل‌ها (Heading Order) اطمینان حاصل کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+سرفصل‌ها ساختار کلی صفحه را منتقل می‌کنند. وقتی به‌درستی استفاده شوند، پیمایش در صفحه برای کاربر آسان‌تر می‌شود.
+</Collapse>
+
+- از کُنتراست (تضاد رنگی) مناسب میان متن و پس‌زمینه اطمینان حاصل کنید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+افرادی که دچار ضعف بینایی هستند به کنتراست (تضاد رنگی) بالایی نیاز دارند تا بتوانند خطوط، حاشیه‌ها و جزئیات متن را به‌راحتی تشخیص دهند. اگر رنگ متن بیش از حد به رنگ پس‌زمینه نزدیک باشد، به سختی آن متن قابل خواندن خواهد بود.
+</Collapse>
+
+- برای تصاویر، متن جایگزین کوتاه و توصیفی (Alt Text) ارائه دهید.
+
+<Collapse title="چرا" class="not-prose mb-10" isOpen>
+صفحه‌خوان‌ها قادر به تفسیر و توضیح تصاویر به کلمات خوانا نیستند؛ حتی اگر تصویر فقط حاوی متن باشد. بنابراین، متن جایگزین (Alt Text) به کاربران کمک می‌کند تا محتوای تصویر و هدف آن را درک کنند.
+</Collapse>
+
+برای آشنایی بیشتر با دیگر قوانین دسترس‌پذیری می‌توانید به [این منبع](https://dequeuniversity.com/rules/axe) مراجعه کنید.
